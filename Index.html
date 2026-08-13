@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#17365d">
+<link rel="manifest" href="manifest.json">
+<title>Checklist Alojamento</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ background:#f3f5f7;
+ font-family:Arial,Helvetica,sans-serif;
+ color:#17202a;
+}
+
+.container{
+ max-width:720px;
+ margin:auto;
+ padding:12px;
+}
+
+.header{
+ background:#17365d;
+ color:white;
+ border-radius:16px;
+ padding:20px;
+ margin-bottom:14px;
+}
+
+.header h1{
+ margin:0;
+ font-size:21px;
+}
+
+.header p{
+ margin:7px 0 0;
+ font-size:13px;
+}
+
+.progress{
+ height:9px;
+ background:#dfe4e8;
+ border-radius:20px;
+ overflow:hidden;
+ margin-top:15px;
+}
+
+.progress-bar{
+ height:100%;
+ width:0%;
+ background:white;
+ transition:.3s;
+}
+
+.progress-text{
+ font-size:12px;
+ margin-top:6px;
+}
+
+.card{
+ background:white;
+ border-radius:16px;
+ padding:16px;
+ margin-bottom:14px;
+ box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+
+.title{
+ font-size:17px;
+ font-weight:bold;
+ margin-bottom:12px;
+}
+
+label{
+ display:block;
+ font-size:13px;
+ font-weight:bold;
+ margin-top:12px;
+ margin-bottom:5px;
+}
+
+input,textarea{
+ width:100%;
+ padding:12px;
+ border:1px solid #ccd3da;
+ border-radius:10px;
+ font-size:16px;
+ font-family:Arial,sans-serif;
+}
+
+textarea{
+ min-height:75px;
+ resize:vertical;
+}
+
+.categoria{
+ background:#e9eef5;
+ color:#17365d;
+ border-radius:11px;
+ padding:12px;
+ margin-top:20px;
+ margin-bottom:8px;
+ font-weight:bold;
+ font-size:15px;
+}
+
+.item{
+ background:white;
+ border:1px solid #dfe4e8;
+ border-radius:14px;
+ padding:13px;
+ margin-bottom:9px;
+}
+
+.item-texto{
+ font-weight:bold;
+ font-size:15px;
+ line-height:1.4;
+ margin-bottom:12px;
+}
+
+.opcoes{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:7px;
+}
+
+.opcao{
+ position:relative;
+}
+
+.opcao input{
+ position:absolute;
+ opacity:0;
+}
+
+.opcao span{
+ display:block;
+ text-align:center;
+ padding:11px 5px;
+ border:1px solid #ccd3da;
+ border-radius:10px;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+.opcao input:checked+span{
+ background:#17365d;
+ color:white;
+ border-color:#17365d;
+}
+
+.nc-area{
+ display:none;
+ margin-top:10px;
+ padding:10px;
+ background:#fff5f5;
+ border-radius:10px;
+ border:1px solid #f0c5c5;
+}
+
+.nc-area.visivel{
+ display:block;
+}
+
+.nc-titulo{
+ color:#9c2c2c;
+ font-weight:bold;
+ font-size:13px;
+ margin-bottom:8px;
+}
+
+.foto-botao{
+ display:block;
+ width:100%;
+ padding:13px;
+ text-align:center;
+ border:1px dashed #8b969f;
+ border-radius:10px;
+ cursor:pointer;
+ font-weight:bold;
+ background:white;
+}
+
+.foto-botao input{
+ display:none;
+}
+
+.foto-preview,
+.foto-identificacao{
+ display:none;
+ width:100%;
+ max-height:280px;
+ object-fit:contain;
+ margin-top:8px;
+ border-radius:10px;
+ border:1px solid #ccc;
+}
+
+.assinatura{
+ width:100%;
+ height:190px;
+ border:1px solid #ccd3da;
+ border-radius:12px;
+ background:#fafafa;
+ touch-action:none;
+}
+
+.limpar{
+ text-align:right;
+ margin-top:7px;
+}
+
+button{
+ border:none;
+ border-radius:11px;
+ padding:13px 17px;
+ font-size:15px;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+.btn-limpar{
+ background:#e8edf2;
+}
+
+.btn-enviar{
+ width:100%;
+ background:#17365d;
+ color:white;
+ font-size:17px;
+}
+
+.btn-pdf{
+ display:block;
+ width:100%;
+ text-align:center;
+ background:#17365d;
+ color:white;
+ text-decoration:none;
+ padding:14px;
+ border-radius:11px;
+ font-weight:bold;
+ margin-top:10px;
+}
+
+.mensagem{
+ display:none;
+ padding:14px;
+ border-radius:12px;
+ margin-bottom:14px;
+}
+
+.erro{
+ background:#fdeaea;
+ border:1px solid #efb0b0;
+ color:#8b2424;
+}
+
+.sucesso{
+ background:#e7f6ec;
+ border:1px solid #a9d8b6;
+ color:#1f6b35;
+}
+
+.observacao-geral{
+ min-height:120px;
+}
+
+@media print{
+
+ body{
+  background:white;
+ }
+
+ .container{
+  max-width:none;
+  padding:0;
+ }
+
+ .nao-imprimir{
+  display:none!important;
+ }
+
+ .card,
+ .item{
+  box-shadow:none;
+ }
+
+ .item{
+  break-inside:avoid;
+ }
+
+ .categoria{
+  break-after:avoid;
+ }
+
+ textarea,
+ input{
+  border:none;
+  padding:2px;
+ }
+
+ .foto-preview,
+ .foto-identificacao{
+  display:block!important;
+ }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>Checklist de Inspeção de Alojamento</h1>
+
+<p>Aplicativo offline</p>
+
+<div class="progress">
+<div id="barra" class="progress-bar"></div>
+</div>
+
+<div id="progresso" class="progress-text">
+0 de 61 itens respondidos (0%)
+</div>
+
+</div>
+
+<div id="erro" class="mensagem erro"></div>
+
+<div id="sucesso" class="mensagem sucesso"></div>
+
+<form id="form">
+
+<!-- DADOS -->
+
+<div class="card">
+
+<div class="title">
+Dados da inspeção
+</div>
+
+<label>
+Alojamento *
+</label>
+
+<input
+id="alojamento"
+required
+placeholder="Nome ou identificação">
+
+<label>
+Foto de identificação do alojamento
+</label>
+
+<label class="foto-botao">
+
+📷 Tirar / anexar foto do alojamento
+
+<input
+type="file"
+accept="image/*"
+capture="environment"
+onchange="fotoAlojamento(this)">
+
+</label>
+
+<img
+id="fotoAlojamentoPreview"
+class="foto-identificacao">
+
+<label>
+Endereço *
+</label>
+
+<input
+id="endereco"
+required
+placeholder="Endereço">
+
+<label>
+Inspetor *
+</label>
+
+<input
+id="inspetor"
+required
+placeholder="Nome do inspetor">
+
+<label>
+Responsável *
+</label>
+
+<input
+id="responsavel"
+required
+placeholder="Nome do responsável">
+
+<label>
+Data *
+</label>
+
+<input
+id="data"
+type="date"
+required>
+
+<label>
+Horário *
+</label>
+
+<input
+id="horario"
+type="time"
+required>
+
+</div>
+
+<!-- CHECKLIST -->
+
+<div id="checklist"></div>
+
+<!-- OBSERVAÇÃO GERAL -->
+
+<div class="card">
+
+<div class="title">
+Observação geral
+</div>
+
+<label>
+Informações gerais da inspeção, quando necessário.
+</label>
+
+<textarea
+id="observacaoGeral"
+class="observacao-geral"
+placeholder="Digite aqui...">
+</textarea>
+
+</div>
+
+<!-- ASSINATURA -->
+
+<div class="card">
+
+<div class="title">
+Assinatura do responsável *
+</div>
+
+<canvas
+id="assinatura"
+class="assinatura">
+</canvas>
+
+<div class="limpar">
+
+<button
+type="button"
+class="btn-limpar"
+onclick="limparAssinatura()">
+
+Limpar assinatura
+
+</button>
+
+</div>
+
+</div>
+
+<!-- FINALIZAÇÃO -->
+
+<div class="card nao-imprimir">
+
+<button
+type="button"
+id="finalizar"
+class="btn-enviar"
+onclick="finalizar()">
+
+📄 Gerar relatório PDF
+
+</button>
+
+<div
+id="acoes"
+style="display:none">
+
+<a
+href="#"
+class="btn-pdf"
+onclick="abrirPDF(event)">
+
+📄 SALVAR / GERAR PDF
+
+</a>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+<script>
+
+const itens = [
+
+["DORMITÓRIOS","Limpeza"],
+["DORMITÓRIOS","Organização"],
+["DORMITÓRIOS","Ventilação"],
+["DORMITÓRIOS","Iluminação"],
+["DORMITÓRIOS","Camas"],
+["DORMITÓRIOS","Colchões"],
+["DORMITÓRIOS","Roupa de cama"],
+["DORMITÓRIOS","Armários"],
+["DORMITÓRIOS","Tomadas"],
+["DORMITÓRIOS","Janelas"],
+["DORMITÓRIOS","Portas"],
+["DORMITÓRIOS","Área mínima NR-24"],
+
+["ÁREA COMUM","TV"],
+["ÁREA COMUM","Wi-Fi"],
+["ÁREA COMUM","Assentos"],
+["ÁREA COMUM","Quadro de Gestão"],
+
+["SANITÁRIOS","Limpeza"],
+["SANITÁRIOS","Vasos"],
+["SANITÁRIOS","Lavatórios"],
+["SANITÁRIOS","Chuveiros"],
+["SANITÁRIOS","Água"],
+["SANITÁRIOS","Sabonete"],
+["SANITÁRIOS","Papel"],
+["SANITÁRIOS","Espelhos"],
+["SANITÁRIOS","Ralos"],
+["SANITÁRIOS","Lixeiras"],
+
+["COZINHA / REFEITÓRIO","Limpeza"],
+["COZINHA / REFEITÓRIO","Mesas"],
+["COZINHA / REFEITÓRIO","Assentos"],
+["COZINHA / REFEITÓRIO","Bebedouro"],
+["COZINHA / REFEITÓRIO","Água potável"],
+["COZINHA / REFEITÓRIO","Geladeira"],
+["COZINHA / REFEITÓRIO","Fogão"],
+["COZINHA / REFEITÓRIO","Gás (Vazilhame externo)"],
+["COZINHA / REFEITÓRIO","Higiene"],
+
+["LAVANDERIA","Lavadora"],
+["LAVANDERIA","Varal"],
+["LAVANDERIA","Drenagem"],
+["LAVANDERIA","Organização"],
+
+["SEGURANÇA","Extintores"],
+["SEGURANÇA","Sinalização"],
+["SEGURANÇA","Iluminação emergência"],
+["SEGURANÇA","Saídas"],
+["SEGURANÇA","Primeiros socorros"],
+["SEGURANÇA","Instalações elétricas"],
+["SEGURANÇA","Pragas"],
+["SEGURANÇA","Resíduos"],
+
+["GESTÃO","Normas"],
+["GESTÃO","Canal denúncia"],
+["GESTÃO","Contatos de Emergências"],
+["GESTÃO","Álcool e drogas"],
+["GESTÃO","Assédio/Exploração infantil"],
+["GESTÃO","Regras para boa convivência"],
+["GESTÃO","Ficha limpeza"]
+
+];
+
+let respostas={};
+
+let fotos={};
+
+let fotoId=null;
+
+let canvas;
+
+let ctx;
+
+let desenhando=false;
+
+let assinou=false;
+
+
+function esc(s){
+
+return String(s).replace(/[&<>"']/g,m=>({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[m]));
+
+}
+
+
+function iniciar(){
+
+let d=new Date();
+
+document.getElementById("data").value=
+d.toISOString().slice(0,10);
+
+document.getElementById("horario").value=
+String(d.getHours()).padStart(2,"0")
++
+":"
++
+String(d.getMinutes()).padStart(2,"0");
+
+let h="";
+
+let cat="";
+
+itens.forEach((x,i)=>{
+
+if(x[0]!==cat){
+
+cat=x[0];
+
+h+=`
+<div class="categoria">
+${esc(cat)}
+</div>
+`;
+
+}
+
+h+=`
+
+<div class="item">
+
+<div class="item-texto">
+${i+1}. ${esc(x[1])}
+</div>
+
+<div class="opcoes">
+
+<label class="opcao">
+
+<input
+type="radio"
+name="r${i}"
+onchange="resultado(${i},'C')">
+
+<span>C</span>
+
+</label>
+
+<label class="opcao">
+
+<input
+type="radio"
+name="r${i}"
+onchange="resultado(${i},'NC')">
+
+<span>NC</span>
+
+</label>
+
+<label class="opcao">
+
+<input
+type="radio"
+name="r${i}"
+onchange="resultado(${i},'NA')">
+
+<span>NA</span>
+
+</label>
+
+</div>
+
+<div
+id="nc${i}"
+class="nc-area">
+
+<div class="nc-titulo">
+
+⚠ NÃO CONFORMIDADE
+
+</div>
+
+<label>
+Justificativa da NC *
+</label>
+
+<textarea
+id="j${i}"
+placeholder="Descreva a irregularidade encontrada">
+</textarea>
+
+<label class="foto-botao">
+
+📷 Tirar / anexar foto da irregularidade
+
+<input
+type="file"
+accept="image/*"
+capture="environment"
+onchange="fotoNC(${i},this)">
+
+</label>
+
+<img
+id="p${i}"
+class="foto-preview">
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("checklist").innerHTML=h;
+
+prepararAssinatura();
+
+atualizar();
+
+}
+
+
+function resultado(i,v){
+
+respostas[i]=v;
+
+document
+.getElementById("nc"+i)
+.classList
+.toggle("visivel",v==="NC");
+
+atualizar();
+
+}
+
+
+function fotoAlojamento(inp){
+
+if(!inp.files[0])return;
+
+let r=new FileReader();
+
+r.onload=e=>{
+
+fotoId=e.target.result;
+
+let p=document.getElementById(
+"fotoAlojamentoPreview"
+);
+
+p.src=e.target.result;
+
+p.style.display="block";
+
+};
+
+r.readAsDataURL(inp.files[0]);
+
+}
+
+
+function fotoNC(i,inp){
+
+if(!inp.files[0])return;
+
+let r=new FileReader();
+
+r.onload=e=>{
+
+fotos[i]=e.target.result;
+
+let p=document.getElementById("p"+i);
+
+p.src=e.target.result;
+
+p.style.display="block";
+
+};
+
+r.readAsDataURL(inp.files[0]);
+
+}
+
+
+function atualizar(){
+
+let n=Object.keys(respostas).length;
+
+let p=Math.round(
+n/itens.length*100
+);
+
+document.getElementById("barra")
+.style.width=p+"%";
+
+document.getElementById("progresso")
+.textContent=
+n+
+" de "+
+itens.length+
+" itens respondidos ("+
+p+
+"%)";
+
+}
+
+
+function prepararAssinatura(){
+
+canvas=document.getElementById("assinatura");
+
+ctx=canvas.getContext("2d");
+
+let ratio=devicePixelRatio||1;
+
+canvas.width=
+canvas.offsetWidth*ratio;
+
+canvas.height=
+canvas.offsetHeight*ratio;
+
+ctx.scale(ratio,ratio);
+
+ctx.lineWidth=2;
+
+ctx.lineCap="round";
+
+
+canvas.addEventListener(
+"pointerdown",
+e=>{
+
+desenhando=true;
+
+assinou=true;
+
+let r=canvas.getBoundingClientRect();
+
+ctx.beginPath();
+
+ctx.moveTo(
+e.clientX-r.left,
+e.clientY-r.top
+);
+
+});
+
+
+canvas.addEventListener(
+"pointermove",
+e=>{
+
+if(!desenhando)return;
+
+let r=canvas.getBoundingClientRect();
+
+ctx.lineTo(
+e.clientX-r.left,
+e.clientY-r.top
+);
+
+ctx.stroke();
+
+});
+
+
+["pointerup","pointerleave"]
+.forEach(e=>
+
+canvas.addEventListener(
+e,
+()=>desenhando=false
+)
+
+);
+
+}
+
+
+function limparAssinatura(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+assinou=false;
+
+}
+
+
+function mostrarErro(t){
+
+let e=document.getElementById("erro");
+
+e.textContent=t;
+
+e.style.display="block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function finalizar(){
+
+document.getElementById("erro")
+.style.display="none";
+
+document.getElementById("sucesso")
+.style.display="none";
+
+
+let campos=[
+"alojamento",
+"endereco",
+"inspetor",
+"responsavel",
+"data",
+"horario"
+];
+
+
+for(let id of campos){
+
+let el=document.getElementById(id);
+
+if(!el.value.trim()){
+
+mostrarErro(
+"Preencha todos os campos obrigatórios."
+);
+
+el.focus();
+
+return;
+
+}
+
+}
+
+
+if(
+Object.keys(respostas).length!==itens.length
+){
+
+mostrarErro(
+"É necessário responder todos os itens do checklist."
+);
+
+return;
+
+}
+
+
+for(let i=0;i<itens.length;i++){
+
+if(
+respostas[i]==="NC" &&
+!document.getElementById("j"+i)
+.value.trim()
+){
+
+mostrarErro(
+"Existe uma NC sem justificativa."
+);
+
+document
+.getElementById("j"+i)
+.focus();
+
+return;
+
+}
+
+}
+
+
+if(!assinou){
+
+mostrarErro(
+"A assinatura do responsável é obrigatória."
+);
+
+return;
+
+}
+
+
+let s=document.getElementById("sucesso");
+
+s.innerHTML=
+"<strong>Inspeção concluída!</strong>"
++
+"<br><br>"
++
+"Toque em <strong>SALVAR / GERAR PDF</strong>.";
+
+s.style.display="block";
+
+document.getElementById("acoes")
+.style.display="block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function abrirPDF(e){
+
+e.preventDefault();
+
+window.print();
+
+}
+
+
+window.addEventListener(
+"load",
+iniciar
+);
+
+
+if("serviceWorker" in navigator){
+
+window.addEventListener(
+"load",
+()=>navigator.serviceWorker
+.register("service-worker.js")
+.catch(()=>{})
+);
+
+}
+
+</script>
+
+</body>
+</html>
