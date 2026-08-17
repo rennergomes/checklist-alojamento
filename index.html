@@ -16,7 +16,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 700px;
+            max-width: 800px;
             background: #fff;
             margin: 0 auto;
             padding: 30px;
@@ -54,6 +54,28 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+        
+        /* Estilização da tabela de itens de inspeção */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #0056b3;
+        }
+        .radio-group {
+            display: flex;
+            gap: 10px;
+        }
+        
         .btn-group {
             display: flex;
             gap: 10px;
@@ -91,7 +113,7 @@
             background-color: #5a6268;
         }
 
-        /* 🚨 REGRA CRÍTICA PARA IMPRESSÃO / SALVAMENTO EM PDF 🚨 */
+        /* Oculta os botões e links na hora de salvar o PDF ou Imprimir */
         @media print {
             body {
                 background-color: #fff !important;
@@ -102,7 +124,6 @@
                 padding: 0 !important;
                 max-width: 100% !important;
             }
-            /* Oculta os botões e links de navegação para não saírem no papel/PDF */
             .btn-group, .btn-voltar {
                 display: none !important;
             }
@@ -114,6 +135,7 @@
 <div class="container">
     <h1>Checklist de Inspeção de Alojamento</h1>
     
+    <!-- 1. IDENTIFICAÇÃO -->
     <fieldset>
         <legend>Dados da Inspeção</legend>
         
@@ -149,6 +171,102 @@
         </div>
     </fieldset>
 
+    <!-- 2. TABELA COM OS ITENS TÉCNICOS ORIGINAIS DO SITE -->
+    <fieldset>
+        <legend>Itens de Verificação</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item de Inspeção</th>
+                    <th style="width: 180px;">Conformidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1. Estrutura física em bom estado (paredes, teto, piso)?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item1" value="C"> C</label>
+                            <label><input type="radio" name="item1" value="NC"> NC</label>
+                            <label><input type="radio" name="item1" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2. Instalações elétricas seguras (sem fios expostos)?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item2" value="C"> C</label>
+                            <label><input type="radio" name="item2" value="NC"> NC</label>
+                            <label><input type="radio" name="item2" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3. Iluminação e ventilação adequadas nos cômodos?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item3" value="C"> C</label>
+                            <label><input type="radio" name="item3" value="NC"> NC</label>
+                            <label><input type="radio" name="item3" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4. Condições de higiene e limpeza satisfatórias?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item4" value="C"> C</label>
+                            <label><input type="radio" name="item4" value="NC"> NC</label>
+                            <label><input type="radio" name="item4" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5. Instalações sanitárias funcionando perfeitamente?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item5" value="C"> C</label>
+                            <label><input type="radio" name="item5" value="NC"> NC</label>
+                            <label><input type="radio" name="item5" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6. Abastecimento de água potável disponível?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item6" value="C"> C</label>
+                            <label><input type="radio" name="item6" value="NC"> NC</label>
+                            <label><input type="radio" name="item6" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7. Presença e validade de extintores de incêndio?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item7" value="C"> C</label>
+                            <label><input type="radio" name="item7" value="NC"> NC</label>
+                            <label><input type="radio" name="item7" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8. Camas, colchões e armários em boas condições?</td>
+                    <td>
+                        <div class="radio-group">
+                            <label><input type="radio" name="item8" value="C"> C</label>
+                            <label><input type="radio" name="item8" value="NC"> NC</label>
+                            <label><input type="radio" name="item8" value="NA"> NA</label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+    <!-- 3. OBSERVAÇÕES -->
     <fieldset>
         <legend>Observação Geral</legend>
         <div class="form-group">
@@ -156,44 +274,8 @@
         </div>
     </fieldset>
 
+    <!-- 4. VALIDAÇÃO -->
     <fieldset>
         <legend>Validação</legend>
         <div class="form-group">
             <label>Assinatura do responsável *</label>
-            <div style="border: 1px dashed #ccc; height: 100px; background: #fafafa; display: flex; align-items: center; justify-content: center; color: #aaa;">
-                [ Espaço para Assinatura Manual ]
-            </div>
-        </div>
-    </fieldset>
-
-    <div class="btn-group">
-        <!-- Gatilho limpo e atualizado -->
-        <button type="button" id="btn-exportar-pdf">📄 IMPRIMIR / SALVAR PDF</button>
-    </div>
-    
-    <a href="#" class="btn-voltar">← Voltar para o checklist</a>
-</div>
-
-<script>
-// 1. Registro e ativação do seu Service Worker existente
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(reg => console.log('Service Worker registrado com sucesso:', reg.scope))
-            .catch(err => console.error('Falha ao registrar o Service Worker:', err));
-    });
-}
-
-// 2. Evento de clique para gerar o PDF nativo (Independente de internet e bibliotecas)
-document.addEventListener("DOMContentLoaded", function() {
-    const botao = document.getElementById("btn-exportar-pdf");
-    if (botao) {
-        botao.addEventListener("click", function() {
-            // Abre o painel nativo do dispositivo. O usuário só precisa selecionar "Salvar como PDF"
-            window.print(); 
-        });
-    }
-});
-</script>
-</body>
-</html>
