@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checklist de Inspeção de Alojamento</title>
-    <!-- Estilização visual unificada do formulário -->
+    <!-- Vinculação do seu Manifesto PWA existente -->
+    <link rel="manifest" href="manifest.json">
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -67,11 +69,11 @@
             font-weight: bold;
             transition: background 0.2s;
         }
-        #btn-finalizar {
+        #btn-exportar-pdf {
             background-color: #28a745;
             color: white;
         }
-        #btn-finalizar:hover {
+        #btn-exportar-pdf:hover {
             background-color: #218838;
         }
         .btn-voltar {
@@ -89,17 +91,18 @@
             background-color: #5a6268;
         }
 
-        /* Oculta os botões de ação e links ao salvar ou imprimir o documento PDF */
+        /* 🚨 REGRA CRÍTICA PARA IMPRESSÃO / SALVAMENTO EM PDF 🚨 */
         @media print {
             body {
-                background-color: #fff;
-                padding: 0;
+                background-color: #fff !important;
+                padding: 0 !important;
             }
             .container {
-                box-shadow: none;
-                padding: 0;
-                max-width: 100%;
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
             }
+            /* Oculta os botões e links de navegação para não saírem no papel/PDF */
             .btn-group, .btn-voltar {
                 display: none !important;
             }
@@ -108,7 +111,7 @@
 </head>
 <body>
 
-<div class="container" id="conteudo-impressao">
+<div class="container">
     <h1>Checklist de Inspeção de Alojamento</h1>
     
     <fieldset>
@@ -164,55 +167,30 @@
     </fieldset>
 
     <div class="btn-group">
-        <!-- Alteramos o ID para 'btn-finalizar' e removemos o 'onclick' problemático -->
-        <button type="button" id="btn-finalizar">📄 IMPRIMIR / SALVAR PDF</button>
+        <!-- Gatilho limpo e atualizado -->
+        <button type="button" id="btn-exportar-pdf">📄 IMPRIMIR / SALVAR PDF</button>
     </div>
     
     <a href="#" class="btn-voltar">← Voltar para o checklist</a>
 </div>
 
-<!-- Biblioteca externa indispensável que faz o HTML se transformar em um arquivo PDF real -->
-<script src="https://cloudflare.com"></script>
-
-<!-- Automação do comportamento do botão isolada de forma segura -->
 <script>
+// 1. Registro e ativação do seu Service Worker existente
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(reg => console.log('Service Worker registrado com sucesso:', reg.scope))
+            .catch(err => console.error('Falha ao registrar o Service Worker:', err));
+    });
+}
+
+// 2. Evento de clique para gerar o PDF nativo (Independente de internet e bibliotecas)
 document.addEventListener("DOMContentLoaded", function() {
-    // Busca o botão pelo novo identificador único
-    const botaoPDF = document.getElementById("btn-finalizar");
-    
-    if (botaoPDF) {
-        // Gerencia a ativação sem misturar código Javascript dentro das tags HTML
-        botaoPDF.addEventListener("click", function() {
-            console.log("Iniciando o processo de exportação do PDF...");
-
-            // Seleciona toda a área interna do formulário
-            const elementoAlvo = document.getElementById("conteudo-impressao");
-            
-            if (!elementoAlvo) {
-                console.error("Erro: O elemento para impressão não foi encontrado.");
-                return;
-            }
-
-            // Definições de salvamento e resolução do arquivo gerado
-            const configuracoes = {
-                margin:       15,
-                filename:     'checklist_inspecao_alojamento.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // Processa a conversão visual e inicia o download na máquina do usuário
-            html2pdf()
-                .set(configuracoes)
-                .from(elementoAlvo)
-                .save()
-                .then(() => {
-                    console.log("Sucesso: PDF gerado com êxito!");
-                })
-                .catch((erro) => {
-                    console.error("Falha ao criar o PDF:", erro);
-                });
+    const botao = document.getElementById("btn-exportar-pdf");
+    if (botao) {
+        botao.addEventListener("click", function() {
+            // Abre o painel nativo do dispositivo. O usuário só precisa selecionar "Salvar como PDF"
+            window.print(); 
         });
     }
 });
