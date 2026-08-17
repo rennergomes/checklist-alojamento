@@ -5,310 +5,312 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#17365d">
 <link rel="manifest" href="manifest.json">
-<title>Checklist Alojamento</title>
+
+<title>Checklist de Inspeção de Alojamento</title>
 
 <style>
 *{box-sizing:border-box}
 
 body{
- margin:0;
- background:#f3f5f7;
- font-family:Arial,Helvetica,sans-serif;
- color:#17202a;
+margin:0;
+background:#f3f5f7;
+font-family:Arial,Helvetica,sans-serif;
+color:#17202a;
 }
 
 .container{
- max-width:720px;
- margin:auto;
- padding:12px;
+max-width:720px;
+margin:auto;
+padding:12px;
 }
 
 .header{
- background:#17365d;
- color:white;
- border-radius:16px;
- padding:20px;
- margin-bottom:14px;
+background:#17365d;
+color:white;
+border-radius:16px;
+padding:20px;
+margin-bottom:14px;
 }
 
 .header h1{
- margin:0;
- font-size:21px;
+margin:0;
+font-size:21px;
 }
 
 .header p{
- margin:7px 0 0;
- font-size:13px;
+margin:7px 0 0;
+font-size:13px;
 }
 
 .progress{
- height:9px;
- background:#dfe4e8;
- border-radius:20px;
- overflow:hidden;
- margin-top:15px;
+height:9px;
+background:#dfe4e8;
+border-radius:20px;
+overflow:hidden;
+margin-top:15px;
 }
 
 .progress-bar{
- height:100%;
- width:0%;
- background:white;
- transition:.3s;
+height:100%;
+width:0%;
+background:white;
+transition:.3s;
 }
 
 .progress-text{
- font-size:12px;
- margin-top:6px;
+font-size:12px;
+margin-top:6px;
 }
 
 .card{
- background:white;
- border-radius:16px;
- padding:16px;
- margin-bottom:14px;
- box-shadow:0 2px 10px rgba(0,0,0,.06);
+background:white;
+border-radius:16px;
+padding:16px;
+margin-bottom:14px;
+box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
 
 .title{
- font-size:17px;
- font-weight:bold;
- margin-bottom:12px;
+font-size:17px;
+font-weight:bold;
+margin-bottom:12px;
 }
 
 label{
- display:block;
- font-size:13px;
- font-weight:bold;
- margin-top:12px;
- margin-bottom:5px;
+display:block;
+font-size:13px;
+font-weight:bold;
+margin-top:12px;
+margin-bottom:5px;
 }
 
-input,textarea{
- width:100%;
- padding:12px;
- border:1px solid #ccd3da;
- border-radius:10px;
- font-size:16px;
- font-family:Arial,sans-serif;
+input,
+textarea{
+width:100%;
+padding:12px;
+border:1px solid #ccd3da;
+border-radius:10px;
+font-size:16px;
+font-family:Arial,sans-serif;
 }
 
 textarea{
- min-height:75px;
- resize:vertical;
+min-height:75px;
+resize:vertical;
 }
 
 .categoria{
- background:#e9eef5;
- color:#17365d;
- border-radius:11px;
- padding:12px;
- margin-top:20px;
- margin-bottom:8px;
- font-weight:bold;
- font-size:15px;
+background:#e9eef5;
+color:#17365d;
+border-radius:11px;
+padding:12px;
+margin-top:20px;
+margin-bottom:8px;
+font-weight:bold;
+font-size:15px;
 }
 
 .item{
- background:white;
- border:1px solid #dfe4e8;
- border-radius:14px;
- padding:13px;
- margin-bottom:9px;
+background:white;
+border:1px solid #dfe4e8;
+border-radius:14px;
+padding:13px;
+margin-bottom:9px;
 }
 
 .item-texto{
- font-weight:bold;
- font-size:15px;
- line-height:1.4;
- margin-bottom:12px;
+font-weight:bold;
+font-size:15px;
+line-height:1.4;
+margin-bottom:12px;
 }
 
 .opcoes{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:7px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:7px;
 }
 
 .opcao{
- position:relative;
+position:relative;
 }
 
 .opcao input{
- position:absolute;
- opacity:0;
+position:absolute;
+opacity:0;
 }
 
 .opcao span{
- display:block;
- text-align:center;
- padding:11px 5px;
- border:1px solid #ccd3da;
- border-radius:10px;
- font-weight:bold;
- cursor:pointer;
+display:block;
+text-align:center;
+padding:11px 5px;
+border:1px solid #ccd3da;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
 }
 
 .opcao input:checked+span{
- background:#17365d;
- color:white;
- border-color:#17365d;
+background:#17365d;
+color:white;
+border-color:#17365d;
 }
 
 .nc-area{
- display:none;
- margin-top:10px;
- padding:10px;
- background:#fff5f5;
- border-radius:10px;
- border:1px solid #f0c5c5;
+display:none;
+margin-top:10px;
+padding:10px;
+background:#fff5f5;
+border-radius:10px;
+border:1px solid #f0c5c5;
 }
 
 .nc-area.visivel{
- display:block;
+display:block;
 }
 
 .nc-titulo{
- color:#9c2c2c;
- font-weight:bold;
- font-size:13px;
- margin-bottom:8px;
+color:#9c2c2c;
+font-weight:bold;
+font-size:13px;
+margin-bottom:8px;
 }
 
 .foto-botao{
- display:block;
- width:100%;
- padding:13px;
- text-align:center;
- border:1px dashed #8b969f;
- border-radius:10px;
- cursor:pointer;
- font-weight:bold;
- background:white;
+display:block;
+width:100%;
+padding:13px;
+text-align:center;
+border:1px dashed #8b969f;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+background:white;
 }
 
 .foto-botao input{
- display:none;
+display:none;
 }
 
 .foto-preview,
 .foto-identificacao{
- display:none;
- width:100%;
- max-height:280px;
- object-fit:contain;
- margin-top:8px;
- border-radius:10px;
- border:1px solid #ccc;
+display:none;
+width:100%;
+max-height:280px;
+object-fit:contain;
+margin-top:8px;
+border-radius:10px;
+border:1px solid #ccc;
 }
 
 .assinatura{
- width:100%;
- height:190px;
- border:1px solid #ccd3da;
- border-radius:12px;
- background:#fafafa;
- touch-action:none;
+width:100%;
+height:190px;
+border:1px solid #ccd3da;
+border-radius:12px;
+background:#fafafa;
+touch-action:none;
 }
 
 .limpar{
- text-align:right;
- margin-top:7px;
+text-align:right;
+margin-top:7px;
 }
 
 button{
- border:none;
- border-radius:11px;
- padding:13px 17px;
- font-size:15px;
- font-weight:bold;
- cursor:pointer;
+border:none;
+border-radius:11px;
+padding:13px 17px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
 }
 
 .btn-limpar{
- background:#e8edf2;
+background:#e8edf2;
 }
 
 .btn-enviar{
- width:100%;
- background:#17365d;
- color:white;
- font-size:17px;
+width:100%;
+background:#17365d;
+color:white;
+font-size:17px;
 }
 
 .btn-pdf{
- display:block;
- width:100%;
- text-align:center;
- background:#17365d;
- color:white;
- text-decoration:none;
- padding:14px;
- border-radius:11px;
- font-weight:bold;
- margin-top:10px;
+display:block;
+width:100%;
+text-align:center;
+background:#17365d;
+color:white;
+text-decoration:none;
+padding:14px;
+border-radius:11px;
+font-weight:bold;
+margin-top:10px;
 }
 
 .mensagem{
- display:none;
- padding:14px;
- border-radius:12px;
- margin-bottom:14px;
+display:none;
+padding:14px;
+border-radius:12px;
+margin-bottom:14px;
 }
 
 .erro{
- background:#fdeaea;
- border:1px solid #efb0b0;
- color:#8b2424;
+background:#fdeaea;
+border:1px solid #efb0b0;
+color:#8b2424;
 }
 
 .sucesso{
- background:#e7f6ec;
- border:1px solid #a9d8b6;
- color:#1f6b35;
+background:#e7f6ec;
+border:1px solid #a9d8b6;
+color:#1f6b35;
 }
 
 .observacao-geral{
- min-height:120px;
+min-height:120px;
 }
 
 @media print{
 
- body{
-  background:white;
- }
+body{
+background:white;
+}
 
- .container{
-  max-width:none;
-  padding:0;
- }
+.container{
+max-width:none;
+padding:0;
+}
 
- .nao-imprimir{
-  display:none!important;
- }
+.nao-imprimir{
+display:none!important;
+}
 
- .card,
- .item{
-  box-shadow:none;
- }
+.card,
+.item{
+box-shadow:none;
+}
 
- .item{
-  break-inside:avoid;
- }
+.item{
+break-inside:avoid;
+}
 
- .categoria{
-  break-after:avoid;
- }
+.categoria{
+break-after:avoid;
+}
 
- textarea,
- input{
-  border:none;
-  padding:2px;
- }
+textarea,
+input{
+border:none;
+padding:2px;
+}
 
- .foto-preview,
- .foto-identificacao{
-  display:block!important;
- }
+.foto-preview,
+.foto-identificacao{
+display:block!important;
+}
 
 }
 </style>
@@ -320,27 +322,44 @@ button{
 
 <div class="header">
 
-<h1>Checklist de Inspeção de Alojamento</h1>
+<h1>
+Checklist de Inspeção de Alojamento
+</h1>
 
-<p>Aplicativo offline</p>
+<p>
+Aplicativo offline
+</p>
 
 <div class="progress">
-<div id="barra" class="progress-bar"></div>
+
+<div
+id="barra"
+class="progress-bar">
 </div>
 
-<div id="progresso" class="progress-text">
-0 de 61 itens respondidos (0%)
+</div>
+
+<div
+id="progresso"
+class="progress-text">
+
+0 itens respondidos
+
 </div>
 
 </div>
 
-<div id="erro" class="mensagem erro"></div>
+<div
+id="erro"
+class="mensagem erro">
+</div>
 
-<div id="sucesso" class="mensagem sucesso"></div>
+<div
+id="sucesso"
+class="mensagem sucesso">
+</div>
 
 <form id="form">
-
-<!-- DADOS -->
 
 <div class="card">
 
@@ -424,11 +443,7 @@ required>
 
 </div>
 
-<!-- CHECKLIST -->
-
 <div id="checklist"></div>
-
-<!-- OBSERVAÇÃO GERAL -->
 
 <div class="card">
 
@@ -447,8 +462,6 @@ placeholder="Digite aqui...">
 </textarea>
 
 </div>
-
-<!-- ASSINATURA -->
 
 <div class="card">
 
@@ -475,8 +488,6 @@ Limpar assinatura
 </div>
 
 </div>
-
-<!-- FINALIZAÇÃO -->
 
 <div class="card nao-imprimir">
 
@@ -512,6 +523,10 @@ onclick="abrirPDF(event)">
 </div>
 
 <script>
+
+/* ============================================================
+   ITENS DO CHECKLIST
+   ============================================================ */
 
 const itens = [
 
@@ -578,74 +593,107 @@ const itens = [
 
 ];
 
-let respostas={};
 
-let fotos={};
+/* ============================================================
+   VARIÁVEIS
+   ============================================================ */
 
-let fotoId=null;
+let respostas = {};
+
+let fotos = {};
+
+let fotoId = null;
 
 let canvas;
 
 let ctx;
 
-let desenhando=false;
+let desenhando = false;
 
-let assinou=false;
+let assinou = false;
 
 
-function esc(s){
+/* ============================================================
+   ESCAPAR TEXTO
+   ============================================================ */
 
-return String(s).replace(/[&<>"']/g,m=>({
+function esc(texto){
 
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
+return String(texto || "")
 
-}[m]));
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
+/* ============================================================
+   INICIAR
+   ============================================================ */
+
 function iniciar(){
 
-let d=new Date();
+const agora = new Date();
 
-document.getElementById("data").value=
-d.toISOString().slice(0,10);
+document
+.getElementById("data")
+.value =
+agora.toISOString().slice(0,10);
 
-document.getElementById("horario").value=
-String(d.getHours()).padStart(2,"0")
+document
+.getElementById("horario")
+.value =
+String(
+agora.getHours()
+).padStart(2,"0")
 +
 ":"
 +
-String(d.getMinutes()).padStart(2,"0");
+String(
+agora.getMinutes()
+).padStart(2,"0");
 
-let h="";
 
-let cat="";
+let html = "";
 
-itens.forEach((x,i)=>{
+let categoriaAtual = "";
 
-if(x[0]!==cat){
 
-cat=x[0];
+itens.forEach(
+function(item,indice){
 
-h+=`
+if(
+item[0] !== categoriaAtual
+){
+
+categoriaAtual =
+item[0];
+
+html += `
+
 <div class="categoria">
-${esc(cat)}
+
+${esc(categoriaAtual)}
+
 </div>
+
 `;
 
 }
 
-h+=`
+
+html += `
 
 <div class="item">
 
 <div class="item-texto">
-${i+1}. ${esc(x[1])}
+
+${indice + 1}.
+${esc(item[1])}
+
 </div>
 
 <div class="opcoes">
@@ -654,8 +702,8 @@ ${i+1}. ${esc(x[1])}
 
 <input
 type="radio"
-name="r${i}"
-onchange="resultado(${i},'C')">
+name="r${indice}"
+onchange="resultado(${indice},'C')">
 
 <span>C</span>
 
@@ -665,8 +713,8 @@ onchange="resultado(${i},'C')">
 
 <input
 type="radio"
-name="r${i}"
-onchange="resultado(${i},'NC')">
+name="r${indice}"
+onchange="resultado(${indice},'NC')">
 
 <span>NC</span>
 
@@ -676,8 +724,8 @@ onchange="resultado(${i},'NC')">
 
 <input
 type="radio"
-name="r${i}"
-onchange="resultado(${i},'NA')">
+name="r${indice}"
+onchange="resultado(${indice},'NA')">
 
 <span>NA</span>
 
@@ -685,8 +733,9 @@ onchange="resultado(${i},'NA')">
 
 </div>
 
+
 <div
-id="nc${i}"
+id="nc${indice}"
 class="nc-area">
 
 <div class="nc-titulo">
@@ -695,14 +744,19 @@ class="nc-area">
 
 </div>
 
+
 <label>
+
 Justificativa da NC *
+
 </label>
 
+
 <textarea
-id="j${i}"
+id="j${indice}"
 placeholder="Descreva a irregularidade encontrada">
 </textarea>
+
 
 <label class="foto-botao">
 
@@ -712,12 +766,13 @@ placeholder="Descreva a irregularidade encontrada">
 type="file"
 accept="image/*"
 capture="environment"
-onchange="fotoNC(${i},this)">
+onchange="fotoNC(${indice},this)">
 
 </label>
 
+
 <img
-id="p${i}"
+id="p${indice}"
 class="foto-preview">
 
 </div>
@@ -728,7 +783,12 @@ class="foto-preview">
 
 });
 
-document.getElementById("checklist").innerHTML=h;
+
+document
+.getElementById("checklist")
+.innerHTML =
+html;
+
 
 prepararAssinatura();
 
@@ -737,162 +797,285 @@ atualizar();
 }
 
 
-function resultado(i,v){
+/* ============================================================
+   RESULTADO
+   ============================================================ */
 
-respostas[i]=v;
+function resultado(indice,valor){
+
+respostas[indice] =
+valor;
 
 document
-.getElementById("nc"+i)
+.getElementById(
+"nc" + indice
+)
 .classList
-.toggle("visivel",v==="NC");
+.toggle(
+"visivel",
+valor === "NC"
+);
 
 atualizar();
 
 }
 
 
-function fotoAlojamento(inp){
+/* ============================================================
+   FOTO DO ALOJAMENTO
+   ============================================================ */
 
-if(!inp.files[0])return;
+function fotoAlojamento(input){
 
-let r=new FileReader();
+if(
+!input.files ||
+!input.files[0]
+){
 
-r.onload=e=>{
+return;
 
-fotoId=e.target.result;
+}
 
-let p=document.getElementById(
+
+const leitor =
+new FileReader();
+
+
+leitor.onload =
+function(event){
+
+fotoId =
+event.target.result;
+
+
+const preview =
+document.getElementById(
 "fotoAlojamentoPreview"
 );
 
-p.src=e.target.result;
+preview.src =
+event.target.result;
 
-p.style.display="block";
+preview.style.display =
+"block";
 
 };
 
-r.readAsDataURL(inp.files[0]);
+
+leitor.readAsDataURL(
+input.files[0]
+);
 
 }
 
 
-function fotoNC(i,inp){
+/* ============================================================
+   FOTO DA NC
+   ============================================================ */
 
-if(!inp.files[0])return;
+function fotoNC(indice,input){
 
-let r=new FileReader();
+if(
+!input.files ||
+!input.files[0]
+){
 
-r.onload=e=>{
-
-fotos[i]=e.target.result;
-
-let p=document.getElementById("p"+i);
-
-p.src=e.target.result;
-
-p.style.display="block";
-
-};
-
-r.readAsDataURL(inp.files[0]);
+return;
 
 }
 
+
+const leitor =
+new FileReader();
+
+
+leitor.onload =
+function(event){
+
+fotos[indice] =
+event.target.result;
+
+
+const preview =
+document.getElementById(
+"p" + indice
+);
+
+preview.src =
+event.target.result;
+
+preview.style.display =
+"block";
+
+};
+
+
+leitor.readAsDataURL(
+input.files[0]
+);
+
+}
+
+
+/* ============================================================
+   PROGRESSO
+   ============================================================ */
 
 function atualizar(){
 
-let n=Object.keys(respostas).length;
+const respondidos =
+Object.keys(
+respostas
+).length;
 
-let p=Math.round(
-n/itens.length*100
+const percentual =
+Math.round(
+respondidos /
+itens.length *
+100
 );
 
-document.getElementById("barra")
-.style.width=p+"%";
 
-document.getElementById("progresso")
-.textContent=
-n+
-" de "+
-itens.length+
-" itens respondidos ("+
-p+
+document
+.getElementById("barra")
+.style.width =
+percentual + "%";
+
+
+document
+.getElementById("progresso")
+.textContent =
+
+respondidos +
+" de " +
+itens.length +
+" itens respondidos (" +
+percentual +
 "%)";
 
 }
 
 
+/* ============================================================
+   ASSINATURA
+   ============================================================ */
+
 function prepararAssinatura(){
 
-canvas=document.getElementById("assinatura");
+canvas =
+document.getElementById(
+"assinatura"
+);
 
-ctx=canvas.getContext("2d");
+ctx =
+canvas.getContext(
+"2d"
+);
 
-let ratio=devicePixelRatio||1;
 
-canvas.width=
-canvas.offsetWidth*ratio;
+const proporcao =
+window.devicePixelRatio || 1;
 
-canvas.height=
-canvas.offsetHeight*ratio;
 
-ctx.scale(ratio,ratio);
+canvas.width =
+canvas.offsetWidth *
+proporcao;
 
-ctx.lineWidth=2;
+canvas.height =
+canvas.offsetHeight *
+proporcao;
 
-ctx.lineCap="round";
+
+ctx.scale(
+proporcao,
+proporcao
+);
+
+
+ctx.lineWidth = 2;
+
+ctx.lineCap =
+"round";
 
 
 canvas.addEventListener(
 "pointerdown",
-e=>{
+function(event){
 
-desenhando=true;
+desenhando = true;
 
-assinou=true;
+assinou = true;
 
-let r=canvas.getBoundingClientRect();
+const rect =
+canvas.getBoundingClientRect();
 
 ctx.beginPath();
 
 ctx.moveTo(
-e.clientX-r.left,
-e.clientY-r.top
+event.clientX -
+rect.left,
+event.clientY -
+rect.top
 );
 
-});
+}
+);
 
 
 canvas.addEventListener(
 "pointermove",
-e=>{
+function(event){
 
-if(!desenhando)return;
+if(!desenhando){
 
-let r=canvas.getBoundingClientRect();
+return;
+
+}
+
+
+const rect =
+canvas.getBoundingClientRect();
+
 
 ctx.lineTo(
-e.clientX-r.left,
-e.clientY-r.top
+event.clientX -
+rect.left,
+event.clientY -
+rect.top
 );
 
 ctx.stroke();
 
-});
+}
+);
 
 
-["pointerup","pointerleave"]
-.forEach(e=>
+[
+"pointerup",
+"pointerleave",
+"pointercancel"
+]
+.forEach(
+function(evento){
 
 canvas.addEventListener(
-e,
-()=>desenhando=false
-)
+evento,
+function(){
 
+desenhando = false;
+
+}
+);
+
+}
 );
 
 }
 
+
+/* ============================================================
+   LIMPAR ASSINATURA
+   ============================================================ */
 
 function limparAssinatura(){
 
@@ -903,18 +1086,28 @@ canvas.width,
 canvas.height
 );
 
-assinou=false;
+assinou = false;
 
 }
 
 
-function mostrarErro(t){
+/* ============================================================
+   ERRO
+   ============================================================ */
 
-let e=document.getElementById("erro");
+function mostrarErro(mensagem){
 
-e.textContent=t;
+const elemento =
+document.getElementById(
+"erro"
+);
 
-e.style.display="block";
+elemento.textContent =
+mensagem;
+
+elemento.style.display =
+"block";
+
 
 window.scrollTo({
 top:0,
@@ -924,36 +1117,53 @@ behavior:"smooth"
 }
 
 
+/* ============================================================
+   FINALIZAR
+   ============================================================ */
+
 function finalizar(){
 
-document.getElementById("erro")
-.style.display="none";
+document
+.getElementById("erro")
+.style.display =
+"none";
 
-document.getElementById("sucesso")
-.style.display="none";
+
+document
+.getElementById("sucesso")
+.style.display =
+"none";
 
 
-let campos=[
+const campos = [
+
 "alojamento",
 "endereco",
 "inspetor",
 "responsavel",
 "data",
 "horario"
+
 ];
 
 
-for(let id of campos){
+for(
+const id of campos
+){
 
-let el=document.getElementById(id);
+const campo =
+document.getElementById(id);
 
-if(!el.value.trim()){
+
+if(
+!campo.value.trim()
+){
 
 mostrarErro(
 "Preencha todos os campos obrigatórios."
 );
 
-el.focus();
+campo.focus();
 
 return;
 
@@ -962,8 +1172,11 @@ return;
 }
 
 
+/* Todos os itens */
+
 if(
-Object.keys(respostas).length!==itens.length
+Object.keys(respostas).length !==
+itens.length
 ){
 
 mostrarErro(
@@ -975,21 +1188,33 @@ return;
 }
 
 
-for(let i=0;i<itens.length;i++){
+/* NC */
+
+for(
+let i = 0;
+i < itens.length;
+i++
+){
 
 if(
-respostas[i]==="NC" &&
-!document.getElementById("j"+i)
-.value.trim()
+respostas[i] === "NC"
+){
+
+const justificativa =
+document.getElementById(
+"j" + i
+);
+
+
+if(
+!justificativa.value.trim()
 ){
 
 mostrarErro(
 "Existe uma NC sem justificativa."
 );
 
-document
-.getElementById("j"+i)
-.focus();
+justificativa.focus();
 
 return;
 
@@ -997,6 +1222,10 @@ return;
 
 }
 
+}
+
+
+/* Assinatura */
 
 if(!assinou){
 
@@ -1009,19 +1238,34 @@ return;
 }
 
 
-let s=document.getElementById("sucesso");
+const sucesso =
+document.getElementById(
+"sucesso"
+);
 
-s.innerHTML=
+
+sucesso.innerHTML =
+
 "<strong>Inspeção concluída!</strong>"
 +
 "<br><br>"
 +
-"Toque em <strong>SALVAR / GERAR PDF</strong>.";
+"Toque em "
++
+"<strong>SALVAR / GERAR PDF</strong>"
++
+" para abrir o relatório.";
 
-s.style.display="block";
 
-document.getElementById("acoes")
-.style.display="block";
+sucesso.style.display =
+"block";
+
+
+document
+.getElementById("acoes")
+.style.display =
+"block";
+
 
 window.scrollTo({
 top:0,
@@ -1031,14 +1275,901 @@ behavior:"smooth"
 }
 
 
-function abrirPDF(e){
+/* ============================================================
+   GERAR RELATÓRIO
+   ============================================================ */
 
-e.preventDefault();
+function abrirPDF(event){
 
-window.print();
+event.preventDefault();
+
+
+const alojamento =
+document
+.getElementById("alojamento")
+.value;
+
+const endereco =
+document
+.getElementById("endereco")
+.value;
+
+const inspetor =
+document
+.getElementById("inspetor")
+.value;
+
+const responsavel =
+document
+.getElementById("responsavel")
+.value;
+
+const data =
+document
+.getElementById("data")
+.value;
+
+const horario =
+document
+.getElementById("horario")
+.value;
+
+const observacao =
+document
+.getElementById("observacaoGeral")
+.value;
+
+
+/* Contagem */
+
+let conformes = 0;
+
+let naoConformes = 0;
+
+let naoAplicaveis = 0;
+
+
+Object
+.values(respostas)
+.forEach(
+function(resultado){
+
+if(
+resultado === "C"
+){
+
+conformes++;
 
 }
 
+else if(
+resultado === "NC"
+){
+
+naoConformes++;
+
+}
+
+else if(
+resultado === "NA"
+){
+
+naoAplicaveis++;
+
+}
+
+}
+);
+
+
+/* HTML DO RELATÓRIO */
+
+let html = `
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+Relatório - ${esc(alojamento)}
+</title>
+
+
+<style>
+
+@page{
+
+size:A4;
+
+margin:12mm;
+
+}
+
+
+body{
+
+font-family:
+Arial,
+Helvetica,
+sans-serif;
+
+color:#17202a;
+
+font-size:12px;
+
+margin:0;
+
+background:white;
+
+}
+
+
+.header{
+
+background:#17365d;
+
+color:white;
+
+padding:18px;
+
+border-radius:10px;
+
+margin-bottom:15px;
+
+}
+
+
+.header h1{
+
+margin:0;
+
+font-size:20px;
+
+}
+
+
+.titulo{
+
+background:#17365d;
+
+color:white;
+
+padding:8px;
+
+font-weight:bold;
+
+margin-top:14px;
+
+border-radius:6px;
+
+}
+
+
+.info{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:8px;
+
+}
+
+
+.info td{
+
+border:1px solid #ccc;
+
+padding:7px;
+
+}
+
+
+.label{
+
+font-weight:bold;
+
+width:30%;
+
+background:#f1f3f5;
+
+}
+
+
+.resumo{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:8px;
+
+margin-top:10px;
+
+}
+
+
+.resumo div{
+
+padding:12px;
+
+text-align:center;
+
+border:1px solid #ccc;
+
+border-radius:7px;
+
+font-weight:bold;
+
+}
+
+
+.item{
+
+border:1px solid #ccc;
+
+border-radius:7px;
+
+padding:9px;
+
+margin-top:8px;
+
+break-inside:avoid;
+
+}
+
+
+.item-c{
+
+border-left:5px solid #218838;
+
+}
+
+
+.item-nc{
+
+border-left:5px solid #dc3545;
+
+background:#fff5f5;
+
+}
+
+
+.item-na{
+
+border-left:5px solid #777;
+
+background:#f5f5f5;
+
+}
+
+
+.nc{
+
+margin-top:7px;
+
+padding:8px;
+
+background:#fff0f0;
+
+border-radius:5px;
+
+}
+
+
+.obs{
+
+margin-top:7px;
+
+padding:8px;
+
+background:#f6f6f6;
+
+white-space:pre-wrap;
+
+border-radius:5px;
+
+}
+
+
+.foto{
+
+max-width:100%;
+
+max-height:350px;
+
+margin-top:8px;
+
+border:1px solid #aaa;
+
+border-radius:5px;
+
+}
+
+
+.fotoId{
+
+display:block;
+
+max-width:100%;
+
+max-height:400px;
+
+margin:10px auto;
+
+border:1px solid #aaa;
+
+border-radius:5px;
+
+}
+
+
+.assinatura{
+
+text-align:center;
+
+margin-top:20px;
+
+}
+
+
+.assinatura img{
+
+max-width:400px;
+
+max-height:180px;
+
+}
+
+
+.acoes{
+
+text-align:center;
+
+margin:20px 0;
+
+}
+
+
+.botao{
+
+background:#17365d;
+
+color:white;
+
+border:0;
+
+padding:14px 20px;
+
+border-radius:8px;
+
+font-weight:bold;
+
+font-size:15px;
+
+}
+
+
+@media print{
+
+.acoes{
+
+display:none;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+<h1>
+CHECKLIST DE INSPEÇÃO DE ALOJAMENTO
+</h1>
+
+<p>
+<b>Alojamento:</b>
+${esc(alojamento)}
+</p>
+
+<p>
+
+<b>Data:</b>
+${esc(data)}
+
+&nbsp;&nbsp;
+
+<b>Horário:</b>
+${esc(horario)}
+
+</p>
+
+</div>
+
+
+<div class="titulo">
+
+DADOS DA INSPEÇÃO
+
+</div>
+
+
+<table class="info">
+
+<tr>
+
+<td class="label">
+Alojamento
+</td>
+
+<td>
+${esc(alojamento)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="label">
+Endereço
+</td>
+
+<td>
+${esc(endereco)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="label">
+Inspetor
+</td>
+
+<td>
+${esc(inspetor)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="label">
+Responsável
+</td>
+
+<td>
+${esc(responsavel)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="label">
+Data
+</td>
+
+<td>
+${esc(data)}
+</td>
+
+</tr>
+
+
+<tr>
+
+<td class="label">
+Horário
+</td>
+
+<td>
+${esc(horario)}
+</td>
+
+</tr>
+
+</table>
+
+`;
+
+
+/* FOTO ALOJAMENTO */
+
+if(fotoId){
+
+html += `
+
+<div class="titulo">
+
+FOTO DE IDENTIFICAÇÃO DO ALOJAMENTO
+
+</div>
+
+
+<img
+class="fotoId"
+src="${fotoId}"
+>
+
+`;
+
+}
+
+
+/* RESUMO */
+
+html += `
+
+<div class="titulo">
+
+RESUMO DA INSPEÇÃO
+
+</div>
+
+
+<div class="resumo">
+
+<div>
+
+CONFORME
+
+<br>
+
+${conformes}
+
+</div>
+
+
+<div>
+
+NÃO CONFORME
+
+<br>
+
+${naoConformes}
+
+</div>
+
+
+<div>
+
+NÃO APLICÁVEL
+
+<br>
+
+${naoAplicaveis}
+
+</div>
+
+</div>
+
+`;
+
+
+/* ITENS */
+
+let categoriaAtual = "";
+
+
+itens.forEach(
+function(item,indice){
+
+if(
+item[0] !== categoriaAtual
+){
+
+categoriaAtual =
+item[0];
+
+
+html += `
+
+<div class="titulo">
+
+${esc(categoriaAtual)}
+
+</div>
+
+`;
+
+}
+
+
+const resultado =
+respostas[indice];
+
+
+let classe =
+"item";
+
+
+if(
+resultado === "C"
+){
+
+classe +=
+" item-c";
+
+}
+
+
+if(
+resultado === "NC"
+){
+
+classe +=
+" item-nc";
+
+}
+
+
+if(
+resultado === "NA"
+){
+
+classe +=
+" item-na";
+
+}
+
+
+let textoResultado =
+"";
+
+
+if(
+resultado === "C"
+){
+
+textoResultado =
+"✓ CONFORME";
+
+}
+
+
+if(
+resultado === "NC"
+){
+
+textoResultado =
+"✕ NÃO CONFORME";
+
+}
+
+
+if(
+resultado === "NA"
+){
+
+textoResultado =
+"— NÃO APLICÁVEL";
+
+}
+
+
+html += `
+
+<div class="${classe}">
+
+<b>
+
+${indice + 1}.
+${esc(item[1])}
+
+</b>
+
+
+<div>
+
+<b>
+
+${textoResultado}
+
+</b>
+
+</div>
+
+`;
+
+
+if(
+resultado === "NC"
+){
+
+const justificativa =
+document
+.getElementById(
+"j" + indice
+)
+.value;
+
+
+html += `
+
+<div class="nc">
+
+<b>
+Justificativa da NC:
+</b>
+
+<br>
+
+${esc(justificativa)}
+
+`;
+
+
+if(
+fotos[indice]
+){
+
+html += `
+
+<br>
+
+<img
+class="foto"
+src="${fotos[indice]}"
+>
+
+`;
+
+}
+
+
+html += `
+
+</div>
+
+`;
+
+}
+
+
+html += `
+
+</div>
+
+`;
+
+});
+
+
+/* OBSERVAÇÃO GERAL */
+
+html += `
+
+<div class="titulo">
+
+OBSERVAÇÃO GERAL
+
+</div>
+
+
+<div class="obs">
+
+${
+observacao.trim()
+?
+esc(observacao)
+:
+"Nenhuma observação geral registrada."
+}
+
+</div>
+
+`;
+
+
+/* ASSINATURA */
+
+const assinatura =
+canvas.toDataURL(
+"image/png"
+);
+
+
+html += `
+
+<div class="titulo">
+
+ASSINATURA DO RESPONSÁVEL
+
+</div>
+
+
+<div class="assinatura">
+
+<img
+src="${assinatura}"
+>
+
+<br><br>
+
+<b>
+
+${esc(responsavel)}
+
+</b>
+
+</div>
+
+
+<div class="acoes">
+
+<button
+class="botao"
+onclick="window.print()">
+
+📄 SALVAR COMO PDF
+
+</button>
+
+</div>
+
+
+</body>
+
+</html>
+
+`;
+
+
+/* ABRIR RELATÓRIO */
+
+const janela =
+window.open(
+"",
+"_blank"
+);
+
+
+if(!janela){
+
+alert(
+"Permita pop-ups no Safari e tente novamente."
+);
+
+return;
+
+}
+
+
+janela.document.open();
+
+janela.document.write(
+html
+);
+
+janela.document.close();
+
+}
+
+
+/* ============================================================
+   INICIAR
+   ============================================================ */
 
 window.addEventListener(
 "load",
@@ -1046,13 +2177,29 @@ iniciar
 );
 
 
-if("serviceWorker" in navigator){
+/* ============================================================
+   SERVICE WORKER
+   ============================================================ */
+
+if(
+"serviceWorker"
+in navigator
+){
 
 window.addEventListener(
 "load",
-()=>navigator.serviceWorker
-.register("service-worker.js")
-.catch(()=>{})
+function(){
+
+navigator
+.serviceWorker
+.register(
+"service-worker.js"
+)
+.catch(
+function(){}
+);
+
+}
 );
 
 }
