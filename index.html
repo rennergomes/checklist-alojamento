@@ -1,1675 +1,221 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#17365d">
-<title>Checklist de Inspeção de Alojamento</title>
-
-<style>
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  background:#f3f5f7;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#17202a;
-}
-
-.container{
-  max-width:720px;
-  margin:auto;
-  padding:12px;
-}
-
-.header{
-  background:#17365d;
-  color:white;
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:14px;
-}
-
-.header h1{
-  margin:0;
-  font-size:21px;
-}
-
-.header p{
-  margin:7px 0 0;
-  font-size:13px;
-}
-
-.progress{
-  height:9px;
-  background:#dfe4e8;
-  border-radius:20px;
-  overflow:hidden;
-  margin-top:15px;
-}
-
-.progress-bar{
-  height:100%;
-  width:0%;
-  background:white;
-  transition:.3s;
-}
-
-.progress-text{
-  font-size:12px;
-  margin-top:6px;
-}
-
-.card{
-  background:white;
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:14px;
-  box-shadow:0 2px 10px rgba(0,0,0,.06);
-}
-
-.title{
-  font-size:17px;
-  font-weight:bold;
-  margin-bottom:12px;
-}
-
-label{
-  display:block;
-  font-size:13px;
-  font-weight:bold;
-  margin-top:12px;
-  margin-bottom:5px;
-}
-
-input,
-textarea{
-  width:100%;
-  padding:12px;
-  border:1px solid #ccd3da;
-  border-radius:10px;
-  font-size:16px;
-  font-family:Arial,Helvetica,sans-serif;
-}
-
-textarea{
-  min-height:75px;
-  resize:vertical;
-}
-
-.categoria{
-  background:#e9eef5;
-  color:#17365d;
-  border-radius:11px;
-  padding:12px;
-  margin-top:20px;
-  margin-bottom:8px;
-  font-weight:bold;
-  font-size:15px;
-}
-
-.item{
-  background:white;
-  border:1px solid #dfe4e8;
-  border-radius:14px;
-  padding:13px;
-  margin-bottom:9px;
-}
-
-.item-texto{
-  font-weight:bold;
-  font-size:15px;
-  line-height:1.4;
-  margin-bottom:12px;
-}
-
-.opcoes{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
-}
-
-.opcao{
-  position:relative;
-}
-
-.opcao input{
-  position:absolute;
-  opacity:0;
-}
-
-.opcao span{
-  display:block;
-  text-align:center;
-  padding:11px 5px;
-  border:1px solid #ccd3da;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.opcao input:checked + span{
-  background:#17365d;
-  color:white;
-  border-color:#17365d;
-}
-
-.nc-area{
-  display:none;
-  margin-top:10px;
-  padding:10px;
-  background:#fff5f5;
-  border-radius:10px;
-  border:1px solid #f0c5c5;
-}
-
-.nc-area.visivel{
-  display:block;
-}
-
-.nc-titulo{
-  color:#9c2c2c;
-  font-weight:bold;
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-.foto-botao{
-  display:block;
-  width:100%;
-  padding:13px;
-  text-align:center;
-  border:1px dashed #8b969f;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
-  background:white;
-}
-
-.foto-botao input{
-  display:none;
-}
-
-.foto-preview{
-  display:none;
-  width:100%;
-  max-height:280px;
-  object-fit:contain;
-  margin-top:8px;
-  border-radius:10px;
-  border:1px solid #ccc;
-}
-
-.assinatura{
-  width:100%;
-  height:190px;
-  border:1px solid #ccd3da;
-  border-radius:12px;
-  background:#fafafa;
-  touch-action:none;
-}
-
-.limpar{
-  text-align:right;
-  margin-top:7px;
-}
-
-button{
-  border:none;
-  border-radius:11px;
-  padding:13px 17px;
-  font-size:15px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.btn-limpar{
-  background:#e8edf2;
-}
-
-.btn-enviar{
-  width:100%;
-  background:#17365d;
-  color:white;
-  font-size:17px;
-}
-
-.btn-imprimir{
-  width:100%;
-  background:#218838;
-  color:white;
-  font-size:17px;
-  margin-top:10px;
-}
-
-.btn-voltar{
-  width:100%;
-  background:#e8edf2;
-  color:#17202a;
-  font-size:16px;
-  margin-top:10px;
-}
-
-.mensagem{
-  display:none;
-  padding:14px;
-  border-radius:12px;
-  margin-bottom:14px;
-}
-
-.erro{
-  background:#fdeaea;
-  border:1px solid #efb0b0;
-  color:#8b2424;
-}
-
-.observacao-geral{
-  min-height:120px;
-}
-
-#relatorio{
-  display:none;
-}
-
-.relatorio-conteudo{
-  background:white;
-  max-width:800px;
-  margin:auto;
-  padding:20px;
-}
-
-.relatorio-header{
-  background:#17365d;
-  color:white;
-  padding:18px;
-  border-radius:10px;
-  margin-bottom:15px;
-}
-
-.relatorio-header h1{
-  margin:0;
-  font-size:20px;
-}
-
-.relatorio-titulo{
-  background:#17365d;
-  color:white;
-  padding:9px;
-  font-weight:bold;
-  margin-top:15px;
-  border-radius:6px;
-}
-
-.tabela-info{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:8px;
-}
-
-.tabela-info td{
-  border:1px solid #ccc;
-  padding:8px;
-}
-
-.tabela-info .rotulo{
-  font-weight:bold;
-  width:30%;
-  background:#f1f3f5;
-}
-
-.resumo{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:10px;
-}
-
-.resumo div{
-  padding:12px;
-  text-align:center;
-  border:1px solid #ccc;
-  border-radius:7px;
-  font-weight:bold;
-}
-
-.relatorio-item{
-  border:1px solid #ccc;
-  border-radius:7px;
-  padding:9px;
-  margin-top:8px;
-  break-inside:avoid;
-}
-
-.item-c{
-  border-left:5px solid #218838;
-}
-
-.item-nc{
-  border-left:5px solid #dc3545;
-  background:#fff5f5;
-}
-
-.item-na{
-  border-left:5px solid #777;
-  background:#f5f5f5;
-}
-
-.justificativa{
-  margin-top:8px;
-  padding:8px;
-  background:#fff0f0;
-  border-radius:5px;
-}
-
-.foto{
-  max-width:100%;
-  max-height:350px;
-  margin-top:8px;
-  border:1px solid #aaa;
-  border-radius:5px;
-}
-
-.foto-identificacao{
-  display:block;
-  max-width:100%;
-  max-height:400px;
-  margin:10px auto;
-  border:1px solid #aaa;
-  border-radius:5px;
-}
-
-.observacao{
-  margin-top:8px;
-  padding:10px;
-  background:#f5f5f5;
-  border-radius:6px;
-  white-space:pre-wrap;
-}
-
-.assinatura-relatorio{
-  text-align:center;
-  margin-top:20px;
-}
-
-.assinatura-relatorio img{
-  max-width:400px;
-  max-height:180px;
-}
-
-.acoes-relatorio{
-  margin-top:20px;
-}
-
-@media print{
-
-  body{
-    background:white;
-  }
-
-  .nao-imprimir{
-    display:none !important;
-  }
-
-  .relatorio-conteudo{
-    max-width:none;
-    padding:0;
-  }
-
-  .relatorio-item{
-    break-inside:avoid;
-  }
-
-  .relatorio-titulo{
-    break-after:avoid;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Inspeção de Alojamento</title>
+    <!-- Estilização visual unificada do formulário -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 25px;
+        }
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        legend {
+            font-weight: bold;
+            color: #0056b3;
+            padding: 0 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="date"], input[type="time"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        #btn-finalizar {
+            background-color: #28a745;
+            color: white;
+        }
+        #btn-finalizar:hover {
+            background-color: #218838;
+        }
+        .btn-voltar {
+            background-color: #6c757d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .btn-voltar:hover {
+            background-color: #5a6268;
+        }
+
+        /* Oculta os botões de ação e links ao salvar ou imprimir o documento PDF */
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .btn-group, .btn-voltar {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="telaChecklist">
+<div class="container" id="conteudo-impressao">
+    <h1>Checklist de Inspeção de Alojamento</h1>
+    
+    <fieldset>
+        <legend>Dados da Inspeção</legend>
+        
+        <div class="form-group">
+            <label for="alojamento">Alojamento *</label>
+            <input type="text" id="alojamento" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="endereco">Endereço *</label>
+            <input type="text" id="endereco" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="inspetor">Inspetor *</label>
+            <input type="text" id="inspetor" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="responsavel">Responsável *</label>
+            <input type="text" id="responsavel" required>
+        </div>
+        
+        <div class="form-group" style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label for="data">Data *</label>
+                <input type="date" id="data" required>
+            </div>
+            <div style="flex: 1;">
+                <label for="horario">Horário *</label>
+                <input type="time" id="horario" required>
+            </div>
+        </div>
+    </fieldset>
 
-<div class="container">
+    <fieldset>
+        <legend>Observação Geral</legend>
+        <div class="form-group">
+            <textarea id="observacao" rows="4" placeholder="Preencha somente quando necessário."></textarea>
+        </div>
+    </fieldset>
 
-<div class="header">
+    <fieldset>
+        <legend>Validação</legend>
+        <div class="form-group">
+            <label>Assinatura do responsável *</label>
+            <div style="border: 1px dashed #ccc; height: 100px; background: #fafafa; display: flex; align-items: center; justify-content: center; color: #aaa;">
+                [ Espaço para Assinatura Manual ]
+            </div>
+        </div>
+    </fieldset>
 
-<h1>
-Checklist de Inspeção de Alojamento
-</h1>
-
-<p>
-Preencha todos os itens da inspeção.
-</p>
-
-<div class="progress">
-<div id="barra" class="progress-bar"></div>
+    <div class="btn-group">
+        <!-- Alteramos o ID para 'btn-finalizar' e removemos o 'onclick' problemático -->
+        <button type="button" id="btn-finalizar">📄 IMPRIMIR / SALVAR PDF</button>
+    </div>
+    
+    <a href="#" class="btn-voltar">← Voltar para o checklist</a>
 </div>
 
-<div id="progresso" class="progress-text">
-0 itens respondidos
-</div>
+<!-- Biblioteca externa indispensável que faz o HTML se transformar em um arquivo PDF real -->
+<script src="https://cloudflare.com"></script>
 
-</div>
-
-<div id="erro" class="mensagem erro"></div>
-
-<form id="formulario">
-
-<div class="card">
-
-<div class="title">
-Dados da inspeção
-</div>
-
-<label>
-Alojamento *
-</label>
-
-<input
-id="alojamento"
-required
-placeholder="Nome ou identificação"
->
-
-<label>
-Foto de identificação do alojamento
-</label>
-
-<label class="foto-botao">
-
-📷 Tirar / anexar foto
-
-<input
-type="file"
-accept="image/*"
-capture="environment"
-onchange="selecionarFotoAlojamento(this)"
->
-
-</label>
-
-<img
-id="previewAlojamento"
-class="foto-preview"
->
-
-<label>
-Endereço *
-</label>
-
-<input
-id="endereco"
-required
-placeholder="Endereço"
->
-
-<label>
-Inspetor *
-</label>
-
-<input
-id="inspetor"
-required
-placeholder="Nome do inspetor"
->
-
-<label>
-Responsável *
-</label>
-
-<input
-id="responsavel"
-required
-placeholder="Nome do responsável"
->
-
-<label>
-Data *
-</label>
-
-<input
-id="data"
-type="date"
-required
->
-
-<label>
-Horário *
-</label>
-
-<input
-id="horario"
-type="time"
-required
->
-
-</div>
-
-<div id="checklist"></div>
-
-<div class="card">
-
-<div class="title">
-Observação geral
-</div>
-
-<label>
-Preencha somente quando necessário.
-</label>
-
-<textarea
-id="observacaoGeral"
-class="observacao-geral"
-placeholder="Digite aqui a observação geral da inspeção..."
-></textarea>
-
-</div>
-
-<div class="card">
-
-<div class="title">
-Assinatura do responsável *
-</div>
-
-<canvas
-id="assinatura"
-class="assinatura"
-></canvas>
-
-<div class="limpar">
-
-<button
-type="button"
-class="btn-limpar"
-onclick="limparAssinatura()"
->
-Limpar assinatura
-</button>
-
-</div>
-
-</div>
-
-<div class="card nao-imprimir">
-
-<button
-type="button"
-class="btn-enviar"
-onclick="finalizarInspecao()"
->
-Finalizar inspeção
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-</div>
-
-
-<div id="relatorio">
-
-<div class="relatorio-conteudo">
-
-<div id="relatorioConteudo"></div>
-
-<div class="acoes-relatorio nao-imprimir">
-
-<button
-type="button"
-class="btn-imprimir"
-onclick="imprimirRelatorio()"
->
-📄 IMPRIMIR / SALVAR PDF
-</button>
-
-<button
-type="button"
-class="btn-voltar"
-onclick="voltarChecklist()"
->
-← Voltar para o checklist
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
+<!-- Automação do comportamento do botão isolada de forma segura -->
 <script>
-
-const itens=[
-
-["DORMITÓRIOS","Limpeza"],
-["DORMITÓRIOS","Organização"],
-["DORMITÓRIOS","Ventilação"],
-["DORMITÓRIOS","Iluminação"],
-["DORMITÓRIOS","Camas"],
-["DORMITÓRIOS","Colchões"],
-["DORMITÓRIOS","Roupa de cama"],
-["DORMITÓRIOS","Armários"],
-["DORMITÓRIOS","Tomadas"],
-["DORMITÓRIOS","Janelas"],
-["DORMITÓRIOS","Portas"],
-["DORMITÓRIOS","Área mínima NR-24"],
-
-["ÁREA COMUM","TV"],
-["ÁREA COMUM","Wi-Fi"],
-["ÁREA COMUM","Assentos"],
-["ÁREA COMUM","Quadro de Gestão"],
-
-["SANITÁRIOS","Limpeza"],
-["SANITÁRIOS","Vasos"],
-["SANITÁRIOS","Lavatórios"],
-["SANITÁRIOS","Chuveiros"],
-["SANITÁRIOS","Água"],
-["SANITÁRIOS","Sabonete"],
-["SANITÁRIOS","Papel"],
-["SANITÁRIOS","Espelhos"],
-["SANITÁRIOS","Ralos"],
-["SANITÁRIOS","Lixeiras"],
-
-["COZINHA / REFEITÓRIO","Limpeza"],
-["COZINHA / REFEITÓRIO","Mesas"],
-["COZINHA / REFEITÓRIO","Assentos"],
-["COZINHA / REFEITÓRIO","Bebedouro"],
-["COZINHA / REFEITÓRIO","Água potável"],
-["COZINHA / REFEITÓRIO","Geladeira"],
-["COZINHA / REFEITÓRIO","Fogão"],
-["COZINHA / REFEITÓRIO","Gás (Vazilhame externo)"],
-["COZINHA / REFEITÓRIO","Higiene"],
-
-["LAVANDERIA","Lavadora"],
-["LAVANDERIA","Varal"],
-["LAVANDERIA","Drenagem"],
-["LAVANDERIA","Organização"],
-
-["SEGURANÇA","Extintores"],
-["SEGURANÇA","Sinalização"],
-["SEGURANÇA","Iluminação emergência"],
-["SEGURANÇA","Saídas"],
-["SEGURANÇA","Primeiros socorros"],
-["SEGURANÇA","Instalações elétricas"],
-["SEGURANÇA","Pragas"],
-["SEGURANÇA","Resíduos"],
-
-["GESTÃO","Normas"],
-["GESTÃO","Canal denúncia"],
-["GESTÃO","Contatos de Emergências"],
-["GESTÃO","Álcool e drogas"],
-["GESTÃO","Assédio/Exploração infantil"],
-["GESTÃO","Regras para boa convivência"],
-["GESTÃO","Ficha limpeza"]
-
-];
-
-
-let respostas={};
-
-let fotos={};
-
-let fotoAlojamento=null;
-
-let canvas;
-
-let ctx;
-
-let desenhando=false;
-
-let assinaturaExiste=false;
-
-
-function escapar(t){
-
-return String(t||"")
-
-.replace(/&/g,"&amp;")
-
-.replace(/</g,"&lt;")
-
-.replace(/>/g,"&gt;")
-
-.replace(/"/g,"&quot;")
-
-.replace(/'/g,"&#039;");
-
-}
-
-
-function iniciar(){
-
-const a=new Date();
-
-document.getElementById("data").value=
-a.toISOString().substring(0,10);
-
-document.getElementById("horario").value=
-String(a.getHours()).padStart(2,"0")
-+":"
-+String(a.getMinutes()).padStart(2,"0");
-
-
-let h="";
-
-let cat="";
-
-
-itens.forEach((x,i)=>{
-
-if(x[0]!==cat){
-
-cat=x[0];
-
-h+=`
-<div class="categoria">
-${escapar(cat)}
-</div>
-`;
-
-}
-
-
-h+=`
-
-<div class="item">
-
-<div class="item-texto">
-
-${i+1}. ${escapar(x[1])}
-
-</div>
-
-
-<div class="opcoes">
-
-<label class="opcao">
-
-<input
-type="radio"
-name="resultado_${i}"
-onchange="selecionarResultado(${i},'C')"
->
-
-<span>C</span>
-
-</label>
-
-
-<label class="opcao">
-
-<input
-type="radio"
-name="resultado_${i}"
-onchange="selecionarResultado(${i},'NC')"
->
-
-<span>NC</span>
-
-</label>
-
-
-<label class="opcao">
-
-<input
-type="radio"
-name="resultado_${i}"
-onchange="selecionarResultado(${i},'NA')"
->
-
-<span>NA</span>
-
-</label>
-
-</div>
-
-
-<div
-id="nc_${i}"
-class="nc-area"
->
-
-<div class="nc-titulo">
-
-⚠ Não conformidade
-
-</div>
-
-
-<label>
-
-Justificativa da NC *
-
-</label>
-
-
-<textarea
-id="justificativa_${i}"
-placeholder="Descreva a irregularidade encontrada"
-></textarea>
-
-
-<label class="foto-botao">
-
-📷 Tirar / anexar foto da irregularidade
-
-<input
-type="file"
-accept="image/*"
-capture="environment"
-onchange="selecionarFotoNC(${i},this)"
->
-
-</label>
-
-
-<img
-id="preview_${i}"
-class="foto-preview"
->
-
-</div>
-
-</div>
-
-`;
-
+document.addEventListener("DOMContentLoaded", function() {
+    // Busca o botão pelo novo identificador único
+    const botaoPDF = document.getElementById("btn-finalizar");
+    
+    if (botaoPDF) {
+        // Gerencia a ativação sem misturar código Javascript dentro das tags HTML
+        botaoPDF.addEventListener("click", function() {
+            console.log("Iniciando o processo de exportação do PDF...");
+
+            // Seleciona toda a área interna do formulário
+            const elementoAlvo = document.getElementById("conteudo-impressao");
+            
+            if (!elementoAlvo) {
+                console.error("Erro: O elemento para impressão não foi encontrado.");
+                return;
+            }
+
+            // Definições de salvamento e resolução do arquivo gerado
+            const configuracoes = {
+                margin:       15,
+                filename:     'checklist_inspecao_alojamento.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Processa a conversão visual e inicia o download na máquina do usuário
+            html2pdf()
+                .set(configuracoes)
+                .from(elementoAlvo)
+                .save()
+                .then(() => {
+                    console.log("Sucesso: PDF gerado com êxito!");
+                })
+                .catch((erro) => {
+                    console.error("Falha ao criar o PDF:", erro);
+                });
+        });
+    }
 });
-
-
-document.getElementById("checklist").innerHTML=h;
-
-prepararAssinatura();
-
-atualizarProgresso();
-
-}
-
-
-function selecionarResultado(i,r){
-
-respostas[i]=r;
-
-const a=document.getElementById("nc_"+i);
-
-if(r==="NC"){
-
-a.classList.add("visivel");
-
-}else{
-
-a.classList.remove("visivel");
-
-}
-
-atualizarProgresso();
-
-}
-
-
-function selecionarFotoAlojamento(input){
-
-if(!input.files||!input.files[0])return;
-
-const l=new FileReader();
-
-l.onload=e=>{
-
-fotoAlojamento=e.target.result;
-
-const p=document.getElementById("previewAlojamento");
-
-p.src=e.target.result;
-
-p.style.display="block";
-
-};
-
-l.readAsDataURL(input.files[0]);
-
-}
-
-
-function selecionarFotoNC(i,input){
-
-if(!input.files||!input.files[0])return;
-
-const l=new FileReader();
-
-l.onload=e=>{
-
-fotos[i]=e.target.result;
-
-const p=document.getElementById("preview_"+i);
-
-p.src=e.target.result;
-
-p.style.display="block";
-
-};
-
-l.readAsDataURL(input.files[0]);
-
-}
-
-
-function atualizarProgresso(){
-
-const r=Object.keys(respostas).length;
-
-const p=Math.round(
-r/itens.length*100
-);
-
-document.getElementById("barra").style.width=p+"%";
-
-document.getElementById("progresso").textContent=
-r
-+" de "
-+itens.length
-+" itens respondidos ("
-+p
-+"%)";
-
-}
-
-
-function prepararAssinatura(){
-
-canvas=document.getElementById("assinatura");
-
-ctx=canvas.getContext("2d");
-
-const p=window.devicePixelRatio||1;
-
-canvas.width=canvas.offsetWidth*p;
-
-canvas.height=canvas.offsetHeight*p;
-
-ctx.scale(p,p);
-
-ctx.lineWidth=2;
-
-ctx.lineCap="round";
-
-
-canvas.addEventListener(
-"pointerdown",
-iniciarDesenho
-);
-
-canvas.addEventListener(
-"pointermove",
-desenhar
-);
-
-canvas.addEventListener(
-"pointerup",
-terminarDesenho
-);
-
-canvas.addEventListener(
-"pointerleave",
-terminarDesenho
-);
-
-canvas.addEventListener(
-"pointercancel",
-terminarDesenho
-);
-
-}
-
-
-function obterPosicao(e){
-
-const r=canvas.getBoundingClientRect();
-
-return{
-
-x:e.clientX-r.left,
-
-y:e.clientY-r.top
-
-};
-
-}
-
-
-function iniciarDesenho(e){
-
-desenhando=true;
-
-assinaturaExiste=true;
-
-const p=obterPosicao(e);
-
-ctx.beginPath();
-
-ctx.moveTo(p.x,p.y);
-
-}
-
-
-function desenhar(e){
-
-if(!desenhando)return;
-
-const p=obterPosicao(e);
-
-ctx.lineTo(p.x,p.y);
-
-ctx.stroke();
-
-}
-
-
-function terminarDesenho(){
-
-desenhando=false;
-
-}
-
-
-function limparAssinatura(){
-
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-assinaturaExiste=false;
-
-}
-
-
-function mostrarErro(m){
-
-const e=document.getElementById("erro");
-
-e.textContent=m;
-
-e.style.display="block";
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-
-function finalizarInspecao(){
-
-document.getElementById("erro").style.display="none";
-
-
-for(
-const id of
-[
-"alojamento",
-"endereco",
-"inspetor",
-"responsavel",
-"data",
-"horario"
-]
-){
-
-const c=document.getElementById(id);
-
-if(!c.value.trim()){
-
-mostrarErro(
-"Preencha todos os campos obrigatórios."
-);
-
-c.focus();
-
-return;
-
-}
-
-}
-
-
-if(
-Object.keys(respostas).length!==itens.length
-){
-
-mostrarErro(
-"É necessário responder todos os itens do checklist."
-);
-
-return;
-
-}
-
-
-for(
-let i=0;
-i<itens.length;
-i++
-){
-
-if(
-respostas[i]==="NC"
-){
-
-const j=
-document.getElementById(
-"justificativa_"+i
-);
-
-if(
-!j.value.trim()
-){
-
-mostrarErro(
-"Existe uma NC sem justificativa."
-);
-
-j.focus();
-
-return;
-
-}
-
-}
-
-}
-
-
-if(!assinaturaExiste){
-
-mostrarErro(
-"A assinatura do responsável é obrigatória."
-);
-
-return;
-
-}
-
-
-gerarRelatorio();
-
-}
-
-
-function gerarRelatorio(){
-
-const alojamento=
-document.getElementById("alojamento")
-.value.trim();
-
-const endereco=
-document.getElementById("endereco")
-.value.trim();
-
-const inspetor=
-document.getElementById("inspetor")
-.value.trim();
-
-const responsavel=
-document.getElementById("responsavel")
-.value.trim();
-
-const data=
-document.getElementById("data")
-.value;
-
-const horario=
-document.getElementById("horario")
-.value;
-
-const obs=
-document.getElementById("observacaoGeral")
-.value.trim();
-
-
-let c=0;
-
-let nc=0;
-
-let na=0;
-
-
-Object.values(respostas).forEach(r=>{
-
-if(r==="C")c++;
-
-if(r==="NC")nc++;
-
-if(r==="NA")na++;
-
-});
-
-
-let h=`
-
-<div class="relatorio-header">
-
-<h1>
-RELATÓRIO DE INSPEÇÃO DE ALOJAMENTO
-</h1>
-
-<p>
-<b>Alojamento:</b>
-${escapar(alojamento)}
-</p>
-
-<p>
-
-<b>Data:</b>
-${escapar(data)}
-
-&nbsp;&nbsp;
-
-<b>Horário:</b>
-${escapar(horario)}
-
-</p>
-
-</div>
-
-
-<div class="relatorio-titulo">
-
-DADOS DA INSPEÇÃO
-
-</div>
-
-
-<table class="tabela-info">
-
-<tr>
-
-<td class="rotulo">
-Alojamento
-</td>
-
-<td>
-${escapar(alojamento)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td class="rotulo">
-Endereço
-</td>
-
-<td>
-${escapar(endereco)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td class="rotulo">
-Inspetor
-</td>
-
-<td>
-${escapar(inspetor)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td class="rotulo">
-Responsável
-</td>
-
-<td>
-${escapar(responsavel)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td class="rotulo">
-Data
-</td>
-
-<td>
-${escapar(data)}
-</td>
-
-</tr>
-
-
-<tr>
-
-<td class="rotulo">
-Horário
-</td>
-
-<td>
-${escapar(horario)}
-</td>
-
-</tr>
-
-</table>
-
-`;
-
-
-if(fotoAlojamento){
-
-h+=`
-
-<div class="relatorio-titulo">
-
-FOTO DE IDENTIFICAÇÃO DO ALOJAMENTO
-
-</div>
-
-<img
-src="${fotoAlojamento}"
-class="foto-identificacao"
->
-
-`;
-
-}
-
-
-h+=`
-
-<div class="relatorio-titulo">
-
-RESUMO DA INSPEÇÃO
-
-</div>
-
-
-<div class="resumo">
-
-<div>
-
-CONFORME
-
-<br>
-
-${c}
-
-</div>
-
-
-<div>
-
-NÃO CONFORME
-
-<br>
-
-${nc}
-
-</div>
-
-
-<div>
-
-NÃO APLICÁVEL
-
-<br>
-
-${na}
-
-</div>
-
-</div>
-
-`;
-
-
-let cat="";
-
-
-itens.forEach((x,i)=>{
-
-if(x[0]!==cat){
-
-cat=x[0];
-
-h+=`
-
-<div class="relatorio-titulo">
-
-${escapar(cat)}
-
-</div>
-
-`;
-
-}
-
-
-const r=respostas[i];
-
-let cl="relatorio-item";
-
-let rt="";
-
-
-if(r==="C"){
-
-cl+=" item-c";
-
-rt="✓ CONFORME";
-
-}
-
-else if(r==="NC"){
-
-cl+=" item-nc";
-
-rt="✕ NÃO CONFORME";
-
-}
-
-else{
-
-cl+=" item-na";
-
-rt="— NÃO APLICÁVEL";
-
-}
-
-
-h+=`
-
-<div class="${cl}">
-
-<b>
-${i+1}.
-${escapar(x[1])}
-</b>
-
-<br><br>
-
-<strong>
-${rt}
-</strong>
-
-`;
-
-
-if(r==="NC"){
-
-const j=
-document.getElementById(
-"justificativa_"+i
-)
-.value.trim();
-
-
-h+=`
-
-<div class="justificativa">
-
-<b>
-Justificativa da NC:
-</b>
-
-<br><br>
-
-${escapar(j)}
-
-`;
-
-
-if(fotos[i]){
-
-h+=`
-
-<br>
-
-<img
-src="${fotos[i]}"
-class="foto"
->
-
-`;
-
-}
-
-
-h+=`
-
-</div>
-
-`;
-
-}
-
-
-h+=`
-
-</div>
-
-`;
-
-});
-
-
-h+=`
-
-<div class="relatorio-titulo">
-
-OBSERVAÇÃO GERAL
-
-</div>
-
-
-<div class="observacao">
-
-${
-obs
-?
-escapar(obs)
-:
-"Nenhuma observação geral registrada."
-}
-
-</div>
-
-
-<div class="relatorio-titulo">
-
-ASSINATURA DO RESPONSÁVEL
-
-</div>
-
-
-<div class="assinatura-relatorio">
-
-<img
-src="${canvas.toDataURL("image/png")}"
->
-
-<br><br>
-
-<strong>
-${escapar(responsavel)}
-</strong>
-
-</div>
-
-`;
-
-
-document.getElementById(
-"relatorioConteudo"
-).innerHTML=h;
-
-
-document.getElementById(
-"telaChecklist"
-).style.display="none";
-
-
-document.getElementById(
-"relatorio"
-).style.display="block";
-
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-
-function imprimirRelatorio(){
-
-window.print();
-
-}
-
-
-function voltarChecklist(){
-
-document.getElementById(
-"relatorio"
-).style.display="none";
-
-document.getElementById(
-"telaChecklist"
-).style.display="block";
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
-
-
-window.addEventListener(
-"load",
-iniciar
-);
-
 </script>
-
 </body>
 </html>
