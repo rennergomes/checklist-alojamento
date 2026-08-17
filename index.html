@@ -4,319 +4,433 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#17365d">
-<link rel="manifest" href="manifest.json">
-
 <title>Checklist de Inspeção de Alojamento</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-margin:0;
-background:#f3f5f7;
-font-family:Arial,Helvetica,sans-serif;
-color:#17202a;
+  margin:0;
+  background:#f3f5f7;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#17202a;
 }
 
 .container{
-max-width:720px;
-margin:auto;
-padding:12px;
+  max-width:720px;
+  margin:auto;
+  padding:12px;
 }
 
 .header{
-background:#17365d;
-color:white;
-border-radius:16px;
-padding:20px;
-margin-bottom:14px;
+  background:#17365d;
+  color:white;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:14px;
 }
 
 .header h1{
-margin:0;
-font-size:21px;
+  margin:0;
+  font-size:21px;
 }
 
 .header p{
-margin:7px 0 0;
-font-size:13px;
+  margin:7px 0 0;
+  font-size:13px;
 }
 
 .progress{
-height:9px;
-background:#dfe4e8;
-border-radius:20px;
-overflow:hidden;
-margin-top:15px;
+  height:9px;
+  background:#dfe4e8;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:15px;
 }
 
 .progress-bar{
-height:100%;
-width:0%;
-background:white;
-transition:.3s;
+  height:100%;
+  width:0%;
+  background:white;
+  transition:.3s;
 }
 
 .progress-text{
-font-size:12px;
-margin-top:6px;
+  font-size:12px;
+  margin-top:6px;
 }
 
 .card{
-background:white;
-border-radius:16px;
-padding:16px;
-margin-bottom:14px;
-box-shadow:0 2px 10px rgba(0,0,0,.06);
+  background:white;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
 
 .title{
-font-size:17px;
-font-weight:bold;
-margin-bottom:12px;
+  font-size:17px;
+  font-weight:bold;
+  margin-bottom:12px;
 }
 
 label{
-display:block;
-font-size:13px;
-font-weight:bold;
-margin-top:12px;
-margin-bottom:5px;
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-top:12px;
+  margin-bottom:5px;
 }
 
 input,
 textarea{
-width:100%;
-padding:12px;
-border:1px solid #ccd3da;
-border-radius:10px;
-font-size:16px;
-font-family:Arial,sans-serif;
+  width:100%;
+  padding:12px;
+  border:1px solid #ccd3da;
+  border-radius:10px;
+  font-size:16px;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 textarea{
-min-height:75px;
-resize:vertical;
+  min-height:75px;
+  resize:vertical;
 }
 
 .categoria{
-background:#e9eef5;
-color:#17365d;
-border-radius:11px;
-padding:12px;
-margin-top:20px;
-margin-bottom:8px;
-font-weight:bold;
-font-size:15px;
+  background:#e9eef5;
+  color:#17365d;
+  border-radius:11px;
+  padding:12px;
+  margin-top:20px;
+  margin-bottom:8px;
+  font-weight:bold;
+  font-size:15px;
 }
 
 .item{
-background:white;
-border:1px solid #dfe4e8;
-border-radius:14px;
-padding:13px;
-margin-bottom:9px;
+  background:white;
+  border:1px solid #dfe4e8;
+  border-radius:14px;
+  padding:13px;
+  margin-bottom:9px;
 }
 
 .item-texto{
-font-weight:bold;
-font-size:15px;
-line-height:1.4;
-margin-bottom:12px;
+  font-weight:bold;
+  font-size:15px;
+  line-height:1.4;
+  margin-bottom:12px;
 }
 
 .opcoes{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:7px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
 }
 
 .opcao{
-position:relative;
+  position:relative;
 }
 
 .opcao input{
-position:absolute;
-opacity:0;
+  position:absolute;
+  opacity:0;
 }
 
 .opcao span{
-display:block;
-text-align:center;
-padding:11px 5px;
-border:1px solid #ccd3da;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
+  display:block;
+  text-align:center;
+  padding:11px 5px;
+  border:1px solid #ccd3da;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.opcao input:checked+span{
-background:#17365d;
-color:white;
-border-color:#17365d;
+.opcao input:checked + span{
+  background:#17365d;
+  color:white;
+  border-color:#17365d;
 }
 
 .nc-area{
-display:none;
-margin-top:10px;
-padding:10px;
-background:#fff5f5;
-border-radius:10px;
-border:1px solid #f0c5c5;
+  display:none;
+  margin-top:10px;
+  padding:10px;
+  background:#fff5f5;
+  border-radius:10px;
+  border:1px solid #f0c5c5;
 }
 
 .nc-area.visivel{
-display:block;
+  display:block;
 }
 
 .nc-titulo{
-color:#9c2c2c;
-font-weight:bold;
-font-size:13px;
-margin-bottom:8px;
+  color:#9c2c2c;
+  font-weight:bold;
+  font-size:13px;
+  margin-bottom:8px;
 }
 
 .foto-botao{
-display:block;
-width:100%;
-padding:13px;
-text-align:center;
-border:1px dashed #8b969f;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
-background:white;
+  display:block;
+  width:100%;
+  padding:13px;
+  text-align:center;
+  border:1px dashed #8b969f;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  background:white;
 }
 
 .foto-botao input{
-display:none;
+  display:none;
 }
 
-.foto-preview,
-.foto-identificacao{
-display:none;
-width:100%;
-max-height:280px;
-object-fit:contain;
-margin-top:8px;
-border-radius:10px;
-border:1px solid #ccc;
+.foto-preview{
+  display:none;
+  width:100%;
+  max-height:280px;
+  object-fit:contain;
+  margin-top:8px;
+  border-radius:10px;
+  border:1px solid #ccc;
 }
 
 .assinatura{
-width:100%;
-height:190px;
-border:1px solid #ccd3da;
-border-radius:12px;
-background:#fafafa;
-touch-action:none;
+  width:100%;
+  height:190px;
+  border:1px solid #ccd3da;
+  border-radius:12px;
+  background:#fafafa;
+  touch-action:none;
 }
 
 .limpar{
-text-align:right;
-margin-top:7px;
+  text-align:right;
+  margin-top:7px;
 }
 
 button{
-border:none;
-border-radius:11px;
-padding:13px 17px;
-font-size:15px;
-font-weight:bold;
-cursor:pointer;
+  border:none;
+  border-radius:11px;
+  padding:13px 17px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .btn-limpar{
-background:#e8edf2;
+  background:#e8edf2;
 }
 
 .btn-enviar{
-width:100%;
-background:#17365d;
-color:white;
-font-size:17px;
+  width:100%;
+  background:#17365d;
+  color:white;
+  font-size:17px;
 }
 
-.btn-pdf{
-display:block;
-width:100%;
-text-align:center;
-background:#17365d;
-color:white;
-text-decoration:none;
-padding:14px;
-border-radius:11px;
-font-weight:bold;
-margin-top:10px;
+.btn-imprimir{
+  width:100%;
+  background:#218838;
+  color:white;
+  font-size:17px;
+  margin-top:10px;
+}
+
+.btn-voltar{
+  width:100%;
+  background:#e8edf2;
+  color:#17202a;
+  font-size:16px;
+  margin-top:10px;
 }
 
 .mensagem{
-display:none;
-padding:14px;
-border-radius:12px;
-margin-bottom:14px;
+  display:none;
+  padding:14px;
+  border-radius:12px;
+  margin-bottom:14px;
 }
 
 .erro{
-background:#fdeaea;
-border:1px solid #efb0b0;
-color:#8b2424;
-}
-
-.sucesso{
-background:#e7f6ec;
-border:1px solid #a9d8b6;
-color:#1f6b35;
+  background:#fdeaea;
+  border:1px solid #efb0b0;
+  color:#8b2424;
 }
 
 .observacao-geral{
-min-height:120px;
+  min-height:120px;
+}
+
+#relatorio{
+  display:none;
+}
+
+.relatorio-conteudo{
+  background:white;
+  max-width:800px;
+  margin:auto;
+  padding:20px;
+}
+
+.relatorio-header{
+  background:#17365d;
+  color:white;
+  padding:18px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.relatorio-header h1{
+  margin:0;
+  font-size:20px;
+}
+
+.relatorio-titulo{
+  background:#17365d;
+  color:white;
+  padding:9px;
+  font-weight:bold;
+  margin-top:15px;
+  border-radius:6px;
+}
+
+.tabela-info{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:8px;
+}
+
+.tabela-info td{
+  border:1px solid #ccc;
+  padding:8px;
+}
+
+.tabela-info .rotulo{
+  font-weight:bold;
+  width:30%;
+  background:#f1f3f5;
+}
+
+.resumo{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+
+.resumo div{
+  padding:12px;
+  text-align:center;
+  border:1px solid #ccc;
+  border-radius:7px;
+  font-weight:bold;
+}
+
+.relatorio-item{
+  border:1px solid #ccc;
+  border-radius:7px;
+  padding:9px;
+  margin-top:8px;
+  break-inside:avoid;
+}
+
+.item-c{
+  border-left:5px solid #218838;
+}
+
+.item-nc{
+  border-left:5px solid #dc3545;
+  background:#fff5f5;
+}
+
+.item-na{
+  border-left:5px solid #777;
+  background:#f5f5f5;
+}
+
+.justificativa{
+  margin-top:8px;
+  padding:8px;
+  background:#fff0f0;
+  border-radius:5px;
+}
+
+.foto{
+  max-width:100%;
+  max-height:350px;
+  margin-top:8px;
+  border:1px solid #aaa;
+  border-radius:5px;
+}
+
+.foto-identificacao{
+  display:block;
+  max-width:100%;
+  max-height:400px;
+  margin:10px auto;
+  border:1px solid #aaa;
+  border-radius:5px;
+}
+
+.observacao{
+  margin-top:8px;
+  padding:10px;
+  background:#f5f5f5;
+  border-radius:6px;
+  white-space:pre-wrap;
+}
+
+.assinatura-relatorio{
+  text-align:center;
+  margin-top:20px;
+}
+
+.assinatura-relatorio img{
+  max-width:400px;
+  max-height:180px;
+}
+
+.acoes-relatorio{
+  margin-top:20px;
 }
 
 @media print{
 
-body{
-background:white;
-}
+  body{
+    background:white;
+  }
 
-.container{
-max-width:none;
-padding:0;
-}
+  .nao-imprimir{
+    display:none !important;
+  }
 
-.nao-imprimir{
-display:none!important;
-}
+  .relatorio-conteudo{
+    max-width:none;
+    padding:0;
+  }
 
-.card,
-.item{
-box-shadow:none;
-}
+  .relatorio-item{
+    break-inside:avoid;
+  }
 
-.item{
-break-inside:avoid;
-}
-
-.categoria{
-break-after:avoid;
-}
-
-textarea,
-input{
-border:none;
-padding:2px;
-}
-
-.foto-preview,
-.foto-identificacao{
-display:block!important;
-}
-
+  .relatorio-titulo{
+    break-after:avoid;
+  }
 }
 </style>
 </head>
 
 <body>
+
+<div id="telaChecklist">
 
 <div class="container">
 
@@ -327,39 +441,22 @@ Checklist de Inspeção de Alojamento
 </h1>
 
 <p>
-Aplicativo offline
+Preencha todos os itens da inspeção.
 </p>
 
 <div class="progress">
-
-<div
-id="barra"
-class="progress-bar">
+<div id="barra" class="progress-bar"></div>
 </div>
 
-</div>
-
-<div
-id="progresso"
-class="progress-text">
-
+<div id="progresso" class="progress-text">
 0 itens respondidos
-
 </div>
 
 </div>
 
-<div
-id="erro"
-class="mensagem erro">
-</div>
+<div id="erro" class="mensagem erro"></div>
 
-<div
-id="sucesso"
-class="mensagem sucesso">
-</div>
-
-<form id="form">
+<form id="formulario">
 
 <div class="card">
 
@@ -374,7 +471,8 @@ Alojamento *
 <input
 id="alojamento"
 required
-placeholder="Nome ou identificação">
+placeholder="Nome ou identificação"
+>
 
 <label>
 Foto de identificação do alojamento
@@ -382,19 +480,21 @@ Foto de identificação do alojamento
 
 <label class="foto-botao">
 
-📷 Tirar / anexar foto do alojamento
+📷 Tirar / anexar foto
 
 <input
 type="file"
 accept="image/*"
 capture="environment"
-onchange="fotoAlojamento(this)">
+onchange="selecionarFotoAlojamento(this)"
+>
 
 </label>
 
 <img
-id="fotoAlojamentoPreview"
-class="foto-identificacao">
+id="previewAlojamento"
+class="foto-preview"
+>
 
 <label>
 Endereço *
@@ -403,7 +503,8 @@ Endereço *
 <input
 id="endereco"
 required
-placeholder="Endereço">
+placeholder="Endereço"
+>
 
 <label>
 Inspetor *
@@ -412,7 +513,8 @@ Inspetor *
 <input
 id="inspetor"
 required
-placeholder="Nome do inspetor">
+placeholder="Nome do inspetor"
+>
 
 <label>
 Responsável *
@@ -421,7 +523,8 @@ Responsável *
 <input
 id="responsavel"
 required
-placeholder="Nome do responsável">
+placeholder="Nome do responsável"
+>
 
 <label>
 Data *
@@ -430,7 +533,8 @@ Data *
 <input
 id="data"
 type="date"
-required>
+required
+>
 
 <label>
 Horário *
@@ -439,7 +543,8 @@ Horário *
 <input
 id="horario"
 type="time"
-required>
+required
+>
 
 </div>
 
@@ -452,14 +557,14 @@ Observação geral
 </div>
 
 <label>
-Informações gerais da inspeção, quando necessário.
+Preencha somente quando necessário.
 </label>
 
 <textarea
 id="observacaoGeral"
 class="observacao-geral"
-placeholder="Digite aqui...">
-</textarea>
+placeholder="Digite aqui a observação geral da inspeção..."
+></textarea>
 
 </div>
 
@@ -471,18 +576,17 @@ Assinatura do responsável *
 
 <canvas
 id="assinatura"
-class="assinatura">
-</canvas>
+class="assinatura"
+></canvas>
 
 <div class="limpar">
 
 <button
 type="button"
 class="btn-limpar"
-onclick="limparAssinatura()">
-
+onclick="limparAssinatura()"
+>
 Limpar assinatura
-
 </button>
 
 </div>
@@ -493,28 +597,11 @@ Limpar assinatura
 
 <button
 type="button"
-id="finalizar"
 class="btn-enviar"
-onclick="finalizar()">
-
-📄 Gerar relatório PDF
-
+onclick="finalizarInspecao()"
+>
+Finalizar inspeção
 </button>
-
-<div
-id="acoes"
-style="display:none">
-
-<a
-href="#"
-class="btn-pdf"
-onclick="abrirPDF(event)">
-
-📄 SALVAR / GERAR PDF
-
-</a>
-
-</div>
 
 </div>
 
@@ -522,13 +609,43 @@ onclick="abrirPDF(event)">
 
 </div>
 
+</div>
+
+
+<div id="relatorio">
+
+<div class="relatorio-conteudo">
+
+<div id="relatorioConteudo"></div>
+
+<div class="acoes-relatorio nao-imprimir">
+
+<button
+type="button"
+class="btn-imprimir"
+onclick="imprimirRelatorio()"
+>
+📄 IMPRIMIR / SALVAR PDF
+</button>
+
+<button
+type="button"
+class="btn-voltar"
+onclick="voltarChecklist()"
+>
+← Voltar para o checklist
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
 
-/* ============================================================
-   ITENS DO CHECKLIST
-   ============================================================ */
-
-const itens = [
+const itens=[
 
 ["DORMITÓRIOS","Limpeza"],
 ["DORMITÓRIOS","Organização"],
@@ -594,107 +711,81 @@ const itens = [
 ];
 
 
-/* ============================================================
-   VARIÁVEIS
-   ============================================================ */
+let respostas={};
 
-let respostas = {};
+let fotos={};
 
-let fotos = {};
-
-let fotoId = null;
+let fotoAlojamento=null;
 
 let canvas;
 
 let ctx;
 
-let desenhando = false;
+let desenhando=false;
 
-let assinou = false;
+let assinaturaExiste=false;
 
 
-/* ============================================================
-   ESCAPAR TEXTO
-   ============================================================ */
+function escapar(t){
 
-function esc(texto){
-
-return String(texto || "")
+return String(t||"")
 
 .replace(/&/g,"&amp;")
+
 .replace(/</g,"&lt;")
+
 .replace(/>/g,"&gt;")
+
 .replace(/"/g,"&quot;")
+
 .replace(/'/g,"&#039;");
 
 }
 
 
-/* ============================================================
-   INICIAR
-   ============================================================ */
-
 function iniciar(){
 
-const agora = new Date();
+const a=new Date();
 
-document
-.getElementById("data")
-.value =
-agora.toISOString().slice(0,10);
+document.getElementById("data").value=
+a.toISOString().substring(0,10);
 
-document
-.getElementById("horario")
-.value =
-String(
-agora.getHours()
-).padStart(2,"0")
-+
-":"
-+
-String(
-agora.getMinutes()
-).padStart(2,"0");
+document.getElementById("horario").value=
+String(a.getHours()).padStart(2,"0")
++":"
++String(a.getMinutes()).padStart(2,"0");
 
 
-let html = "";
+let h="";
 
-let categoriaAtual = "";
+let cat="";
 
 
-itens.forEach(
-function(item,indice){
+itens.forEach((x,i)=>{
 
-if(
-item[0] !== categoriaAtual
-){
+if(x[0]!==cat){
 
-categoriaAtual =
-item[0];
+cat=x[0];
 
-html += `
-
+h+=`
 <div class="categoria">
-
-${esc(categoriaAtual)}
-
+${escapar(cat)}
 </div>
-
 `;
 
 }
 
 
-html += `
+h+=`
 
 <div class="item">
 
 <div class="item-texto">
 
-${indice + 1}.
-${esc(item[1])}
+${i+1}. ${escapar(x[1])}
 
 </div>
+
 
 <div class="opcoes">
 
@@ -702,30 +793,35 @@ ${esc(item[1])}
 
 <input
 type="radio"
-name="r${indice}"
-onchange="resultado(${indice},'C')">
+name="resultado_${i}"
+onchange="selecionarResultado(${i},'C')"
+>
 
 <span>C</span>
 
 </label>
 
+
 <label class="opcao">
 
 <input
 type="radio"
-name="r${indice}"
-onchange="resultado(${indice},'NC')">
+name="resultado_${i}"
+onchange="selecionarResultado(${i},'NC')"
+>
 
 <span>NC</span>
 
 </label>
 
+
 <label class="opcao">
 
 <input
 type="radio"
-name="r${indice}"
-onchange="resultado(${indice},'NA')">
+name="resultado_${i}"
+onchange="selecionarResultado(${i},'NA')"
+>
 
 <span>NA</span>
 
@@ -735,12 +831,13 @@ onchange="resultado(${indice},'NA')">
 
 
 <div
-id="nc${indice}"
-class="nc-area">
+id="nc_${i}"
+class="nc-area"
+>
 
 <div class="nc-titulo">
 
-⚠ NÃO CONFORMIDADE
+⚠ Não conformidade
 
 </div>
 
@@ -753,9 +850,9 @@ Justificativa da NC *
 
 
 <textarea
-id="j${indice}"
-placeholder="Descreva a irregularidade encontrada">
-</textarea>
+id="justificativa_${i}"
+placeholder="Descreva a irregularidade encontrada"
+></textarea>
 
 
 <label class="foto-botao">
@@ -766,14 +863,16 @@ placeholder="Descreva a irregularidade encontrada">
 type="file"
 accept="image/*"
 capture="environment"
-onchange="fotoNC(${indice},this)">
+onchange="selecionarFotoNC(${i},this)"
+>
 
 </label>
 
 
 <img
-id="p${indice}"
-class="foto-preview">
+id="preview_${i}"
+class="foto-preview"
+>
 
 </div>
 
@@ -784,298 +883,199 @@ class="foto-preview">
 });
 
 
-document
-.getElementById("checklist")
-.innerHTML =
-html;
-
+document.getElementById("checklist").innerHTML=h;
 
 prepararAssinatura();
 
-atualizar();
+atualizarProgresso();
 
 }
 
 
-/* ============================================================
-   RESULTADO
-   ============================================================ */
+function selecionarResultado(i,r){
 
-function resultado(indice,valor){
+respostas[i]=r;
 
-respostas[indice] =
-valor;
+const a=document.getElementById("nc_"+i);
 
-document
-.getElementById(
-"nc" + indice
-)
-.classList
-.toggle(
-"visivel",
-valor === "NC"
-);
+if(r==="NC"){
 
-atualizar();
+a.classList.add("visivel");
+
+}else{
+
+a.classList.remove("visivel");
+
+}
+
+atualizarProgresso();
 
 }
 
 
-/* ============================================================
-   FOTO DO ALOJAMENTO
-   ============================================================ */
+function selecionarFotoAlojamento(input){
 
-function fotoAlojamento(input){
+if(!input.files||!input.files[0])return;
 
-if(
-!input.files ||
-!input.files[0]
-){
+const l=new FileReader();
 
-return;
+l.onload=e=>{
 
-}
+fotoAlojamento=e.target.result;
 
+const p=document.getElementById("previewAlojamento");
 
-const leitor =
-new FileReader();
+p.src=e.target.result;
 
-
-leitor.onload =
-function(event){
-
-fotoId =
-event.target.result;
-
-
-const preview =
-document.getElementById(
-"fotoAlojamentoPreview"
-);
-
-preview.src =
-event.target.result;
-
-preview.style.display =
-"block";
+p.style.display="block";
 
 };
 
-
-leitor.readAsDataURL(
-input.files[0]
-);
+l.readAsDataURL(input.files[0]);
 
 }
 
 
-/* ============================================================
-   FOTO DA NC
-   ============================================================ */
+function selecionarFotoNC(i,input){
 
-function fotoNC(indice,input){
+if(!input.files||!input.files[0])return;
 
-if(
-!input.files ||
-!input.files[0]
-){
+const l=new FileReader();
 
-return;
+l.onload=e=>{
 
-}
+fotos[i]=e.target.result;
 
+const p=document.getElementById("preview_"+i);
 
-const leitor =
-new FileReader();
+p.src=e.target.result;
 
-
-leitor.onload =
-function(event){
-
-fotos[indice] =
-event.target.result;
-
-
-const preview =
-document.getElementById(
-"p" + indice
-);
-
-preview.src =
-event.target.result;
-
-preview.style.display =
-"block";
+p.style.display="block";
 
 };
 
-
-leitor.readAsDataURL(
-input.files[0]
-);
+l.readAsDataURL(input.files[0]);
 
 }
 
 
-/* ============================================================
-   PROGRESSO
-   ============================================================ */
+function atualizarProgresso(){
 
-function atualizar(){
+const r=Object.keys(respostas).length;
 
-const respondidos =
-Object.keys(
-respostas
-).length;
-
-const percentual =
-Math.round(
-respondidos /
-itens.length *
-100
+const p=Math.round(
+r/itens.length*100
 );
 
+document.getElementById("barra").style.width=p+"%";
 
-document
-.getElementById("barra")
-.style.width =
-percentual + "%";
-
-
-document
-.getElementById("progresso")
-.textContent =
-
-respondidos +
-" de " +
-itens.length +
-" itens respondidos (" +
-percentual +
-"%)";
+document.getElementById("progresso").textContent=
+r
++" de "
++itens.length
++" itens respondidos ("
++p
++"%)";
 
 }
 
-
-/* ============================================================
-   ASSINATURA
-   ============================================================ */
 
 function prepararAssinatura(){
 
-canvas =
-document.getElementById(
-"assinatura"
-);
+canvas=document.getElementById("assinatura");
 
-ctx =
-canvas.getContext(
-"2d"
-);
+ctx=canvas.getContext("2d");
 
+const p=window.devicePixelRatio||1;
 
-const proporcao =
-window.devicePixelRatio || 1;
+canvas.width=canvas.offsetWidth*p;
 
+canvas.height=canvas.offsetHeight*p;
 
-canvas.width =
-canvas.offsetWidth *
-proporcao;
+ctx.scale(p,p);
 
-canvas.height =
-canvas.offsetHeight *
-proporcao;
+ctx.lineWidth=2;
 
-
-ctx.scale(
-proporcao,
-proporcao
-);
-
-
-ctx.lineWidth = 2;
-
-ctx.lineCap =
-"round";
+ctx.lineCap="round";
 
 
 canvas.addEventListener(
 "pointerdown",
-function(event){
-
-desenhando = true;
-
-assinou = true;
-
-const rect =
-canvas.getBoundingClientRect();
-
-ctx.beginPath();
-
-ctx.moveTo(
-event.clientX -
-rect.left,
-event.clientY -
-rect.top
+iniciarDesenho
 );
-
-}
-);
-
 
 canvas.addEventListener(
 "pointermove",
-function(event){
+desenhar
+);
 
-if(!desenhando){
+canvas.addEventListener(
+"pointerup",
+terminarDesenho
+);
 
-return;
+canvas.addEventListener(
+"pointerleave",
+terminarDesenho
+);
+
+canvas.addEventListener(
+"pointercancel",
+terminarDesenho
+);
 
 }
 
 
-const rect =
-canvas.getBoundingClientRect();
+function obterPosicao(e){
+
+const r=canvas.getBoundingClientRect();
+
+return{
+
+x:e.clientX-r.left,
+
+y:e.clientY-r.top
+
+};
+
+}
 
 
-ctx.lineTo(
-event.clientX -
-rect.left,
-event.clientY -
-rect.top
-);
+function iniciarDesenho(e){
+
+desenhando=true;
+
+assinaturaExiste=true;
+
+const p=obterPosicao(e);
+
+ctx.beginPath();
+
+ctx.moveTo(p.x,p.y);
+
+}
+
+
+function desenhar(e){
+
+if(!desenhando)return;
+
+const p=obterPosicao(e);
+
+ctx.lineTo(p.x,p.y);
 
 ctx.stroke();
 
 }
-);
 
 
-[
-"pointerup",
-"pointerleave",
-"pointercancel"
-]
-.forEach(
-function(evento){
+function terminarDesenho(){
 
-canvas.addEventListener(
-evento,
-function(){
-
-desenhando = false;
-
-}
-);
-
-}
-);
+desenhando=false;
 
 }
 
-
-/* ============================================================
-   LIMPAR ASSINATURA
-   ============================================================ */
 
 function limparAssinatura(){
 
@@ -1086,28 +1086,18 @@ canvas.width,
 canvas.height
 );
 
-assinou = false;
+assinaturaExiste=false;
 
 }
 
 
-/* ============================================================
-   ERRO
-   ============================================================ */
+function mostrarErro(m){
 
-function mostrarErro(mensagem){
+const e=document.getElementById("erro");
 
-const elemento =
-document.getElementById(
-"erro"
-);
+e.textContent=m;
 
-elemento.textContent =
-mensagem;
-
-elemento.style.display =
-"block";
-
+e.style.display="block";
 
 window.scrollTo({
 top:0,
@@ -1117,53 +1107,32 @@ behavior:"smooth"
 }
 
 
-/* ============================================================
-   FINALIZAR
-   ============================================================ */
+function finalizarInspecao(){
 
-function finalizar(){
-
-document
-.getElementById("erro")
-.style.display =
-"none";
+document.getElementById("erro").style.display="none";
 
 
-document
-.getElementById("sucesso")
-.style.display =
-"none";
-
-
-const campos = [
-
+for(
+const id of
+[
 "alojamento",
 "endereco",
 "inspetor",
 "responsavel",
 "data",
 "horario"
-
-];
-
-
-for(
-const id of campos
+]
 ){
 
-const campo =
-document.getElementById(id);
+const c=document.getElementById(id);
 
-
-if(
-!campo.value.trim()
-){
+if(!c.value.trim()){
 
 mostrarErro(
 "Preencha todos os campos obrigatórios."
 );
 
-campo.focus();
+c.focus();
 
 return;
 
@@ -1172,11 +1141,8 @@ return;
 }
 
 
-/* Todos os itens */
-
 if(
-Object.keys(respostas).length !==
-itens.length
+Object.keys(respostas).length!==itens.length
 ){
 
 mostrarErro(
@@ -1188,33 +1154,30 @@ return;
 }
 
 
-/* NC */
-
 for(
-let i = 0;
-i < itens.length;
+let i=0;
+i<itens.length;
 i++
 ){
 
 if(
-respostas[i] === "NC"
+respostas[i]==="NC"
 ){
 
-const justificativa =
+const j=
 document.getElementById(
-"j" + i
+"justificativa_"+i
 );
 
-
 if(
-!justificativa.value.trim()
+!j.value.trim()
 ){
 
 mostrarErro(
 "Existe uma NC sem justificativa."
 );
 
-justificativa.focus();
+j.focus();
 
 return;
 
@@ -1225,9 +1188,7 @@ return;
 }
 
 
-/* Assinatura */
-
-if(!assinou){
+if(!assinaturaExiste){
 
 mostrarErro(
 "A assinatura do responsável é obrigatória."
@@ -1238,488 +1199,105 @@ return;
 }
 
 
-const sucesso =
-document.getElementById(
-"sucesso"
-);
+gerarRelatorio();
+
+}
 
 
-sucesso.innerHTML =
+function gerarRelatorio(){
 
-"<strong>Inspeção concluída!</strong>"
-+
-"<br><br>"
-+
-"Toque em "
-+
-"<strong>SALVAR / GERAR PDF</strong>"
-+
-" para abrir o relatório.";
+const alojamento=
+document.getElementById("alojamento")
+.value.trim();
+
+const endereco=
+document.getElementById("endereco")
+.value.trim();
+
+const inspetor=
+document.getElementById("inspetor")
+.value.trim();
+
+const responsavel=
+document.getElementById("responsavel")
+.value.trim();
+
+const data=
+document.getElementById("data")
+.value;
+
+const horario=
+document.getElementById("horario")
+.value;
+
+const obs=
+document.getElementById("observacaoGeral")
+.value.trim();
 
 
-sucesso.style.display =
-"block";
+let c=0;
+
+let nc=0;
+
+let na=0;
 
 
-document
-.getElementById("acoes")
-.style.display =
-"block";
+Object.values(respostas).forEach(r=>{
 
+if(r==="C")c++;
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
+if(r==="NC")nc++;
+
+if(r==="NA")na++;
+
 });
 
-}
 
+let h=`
 
-/* ============================================================
-   GERAR RELATÓRIO
-   ============================================================ */
-
-function abrirPDF(event){
-
-event.preventDefault();
-
-
-const alojamento =
-document
-.getElementById("alojamento")
-.value;
-
-const endereco =
-document
-.getElementById("endereco")
-.value;
-
-const inspetor =
-document
-.getElementById("inspetor")
-.value;
-
-const responsavel =
-document
-.getElementById("responsavel")
-.value;
-
-const data =
-document
-.getElementById("data")
-.value;
-
-const horario =
-document
-.getElementById("horario")
-.value;
-
-const observacao =
-document
-.getElementById("observacaoGeral")
-.value;
-
-
-/* Contagem */
-
-let conformes = 0;
-
-let naoConformes = 0;
-
-let naoAplicaveis = 0;
-
-
-Object
-.values(respostas)
-.forEach(
-function(resultado){
-
-if(
-resultado === "C"
-){
-
-conformes++;
-
-}
-
-else if(
-resultado === "NC"
-){
-
-naoConformes++;
-
-}
-
-else if(
-resultado === "NA"
-){
-
-naoAplicaveis++;
-
-}
-
-}
-);
-
-
-/* HTML DO RELATÓRIO */
-
-let html = `
-
-<!DOCTYPE html>
-
-<html lang="pt-BR">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1">
-
-<title>
-Relatório - ${esc(alojamento)}
-</title>
-
-
-<style>
-
-@page{
-
-size:A4;
-
-margin:12mm;
-
-}
-
-
-body{
-
-font-family:
-Arial,
-Helvetica,
-sans-serif;
-
-color:#17202a;
-
-font-size:12px;
-
-margin:0;
-
-background:white;
-
-}
-
-
-.header{
-
-background:#17365d;
-
-color:white;
-
-padding:18px;
-
-border-radius:10px;
-
-margin-bottom:15px;
-
-}
-
-
-.header h1{
-
-margin:0;
-
-font-size:20px;
-
-}
-
-
-.titulo{
-
-background:#17365d;
-
-color:white;
-
-padding:8px;
-
-font-weight:bold;
-
-margin-top:14px;
-
-border-radius:6px;
-
-}
-
-
-.info{
-
-width:100%;
-
-border-collapse:collapse;
-
-margin-top:8px;
-
-}
-
-
-.info td{
-
-border:1px solid #ccc;
-
-padding:7px;
-
-}
-
-
-.label{
-
-font-weight:bold;
-
-width:30%;
-
-background:#f1f3f5;
-
-}
-
-
-.resumo{
-
-display:grid;
-
-grid-template-columns:
-repeat(3,1fr);
-
-gap:8px;
-
-margin-top:10px;
-
-}
-
-
-.resumo div{
-
-padding:12px;
-
-text-align:center;
-
-border:1px solid #ccc;
-
-border-radius:7px;
-
-font-weight:bold;
-
-}
-
-
-.item{
-
-border:1px solid #ccc;
-
-border-radius:7px;
-
-padding:9px;
-
-margin-top:8px;
-
-break-inside:avoid;
-
-}
-
-
-.item-c{
-
-border-left:5px solid #218838;
-
-}
-
-
-.item-nc{
-
-border-left:5px solid #dc3545;
-
-background:#fff5f5;
-
-}
-
-
-.item-na{
-
-border-left:5px solid #777;
-
-background:#f5f5f5;
-
-}
-
-
-.nc{
-
-margin-top:7px;
-
-padding:8px;
-
-background:#fff0f0;
-
-border-radius:5px;
-
-}
-
-
-.obs{
-
-margin-top:7px;
-
-padding:8px;
-
-background:#f6f6f6;
-
-white-space:pre-wrap;
-
-border-radius:5px;
-
-}
-
-
-.foto{
-
-max-width:100%;
-
-max-height:350px;
-
-margin-top:8px;
-
-border:1px solid #aaa;
-
-border-radius:5px;
-
-}
-
-
-.fotoId{
-
-display:block;
-
-max-width:100%;
-
-max-height:400px;
-
-margin:10px auto;
-
-border:1px solid #aaa;
-
-border-radius:5px;
-
-}
-
-
-.assinatura{
-
-text-align:center;
-
-margin-top:20px;
-
-}
-
-
-.assinatura img{
-
-max-width:400px;
-
-max-height:180px;
-
-}
-
-
-.acoes{
-
-text-align:center;
-
-margin:20px 0;
-
-}
-
-
-.botao{
-
-background:#17365d;
-
-color:white;
-
-border:0;
-
-padding:14px 20px;
-
-border-radius:8px;
-
-font-weight:bold;
-
-font-size:15px;
-
-}
-
-
-@media print{
-
-.acoes{
-
-display:none;
-
-}
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="header">
+<div class="relatorio-header">
 
 <h1>
-CHECKLIST DE INSPEÇÃO DE ALOJAMENTO
+RELATÓRIO DE INSPEÇÃO DE ALOJAMENTO
 </h1>
 
 <p>
 <b>Alojamento:</b>
-${esc(alojamento)}
+${escapar(alojamento)}
 </p>
 
 <p>
 
 <b>Data:</b>
-${esc(data)}
+${escapar(data)}
 
 &nbsp;&nbsp;
 
 <b>Horário:</b>
-${esc(horario)}
+${escapar(horario)}
 
 </p>
 
 </div>
 
 
-<div class="titulo">
+<div class="relatorio-titulo">
 
 DADOS DA INSPEÇÃO
 
 </div>
 
 
-<table class="info">
+<table class="tabela-info">
 
 <tr>
 
-<td class="label">
+<td class="rotulo">
 Alojamento
 </td>
 
 <td>
-${esc(alojamento)}
+${escapar(alojamento)}
 </td>
 
 </tr>
@@ -1727,12 +1305,12 @@ ${esc(alojamento)}
 
 <tr>
 
-<td class="label">
+<td class="rotulo">
 Endereço
 </td>
 
 <td>
-${esc(endereco)}
+${escapar(endereco)}
 </td>
 
 </tr>
@@ -1740,12 +1318,12 @@ ${esc(endereco)}
 
 <tr>
 
-<td class="label">
+<td class="rotulo">
 Inspetor
 </td>
 
 <td>
-${esc(inspetor)}
+${escapar(inspetor)}
 </td>
 
 </tr>
@@ -1753,12 +1331,12 @@ ${esc(inspetor)}
 
 <tr>
 
-<td class="label">
+<td class="rotulo">
 Responsável
 </td>
 
 <td>
-${esc(responsavel)}
+${escapar(responsavel)}
 </td>
 
 </tr>
@@ -1766,12 +1344,12 @@ ${esc(responsavel)}
 
 <tr>
 
-<td class="label">
+<td class="rotulo">
 Data
 </td>
 
 <td>
-${esc(data)}
+${escapar(data)}
 </td>
 
 </tr>
@@ -1779,12 +1357,12 @@ ${esc(data)}
 
 <tr>
 
-<td class="label">
+<td class="rotulo">
 Horário
 </td>
 
 <td>
-${esc(horario)}
+${escapar(horario)}
 </td>
 
 </tr>
@@ -1794,22 +1372,19 @@ ${esc(horario)}
 `;
 
 
-/* FOTO ALOJAMENTO */
+if(fotoAlojamento){
 
-if(fotoId){
+h+=`
 
-html += `
-
-<div class="titulo">
+<div class="relatorio-titulo">
 
 FOTO DE IDENTIFICAÇÃO DO ALOJAMENTO
 
 </div>
 
-
 <img
-class="fotoId"
-src="${fotoId}"
+src="${fotoAlojamento}"
+class="foto-identificacao"
 >
 
 `;
@@ -1817,11 +1392,9 @@ src="${fotoId}"
 }
 
 
-/* RESUMO */
+h+=`
 
-html += `
-
-<div class="titulo">
+<div class="relatorio-titulo">
 
 RESUMO DA INSPEÇÃO
 
@@ -1836,7 +1409,7 @@ CONFORME
 
 <br>
 
-${conformes}
+${c}
 
 </div>
 
@@ -1847,7 +1420,7 @@ NÃO CONFORME
 
 <br>
 
-${naoConformes}
+${nc}
 
 </div>
 
@@ -1858,7 +1431,7 @@ NÃO APLICÁVEL
 
 <br>
 
-${naoAplicaveis}
+${na}
 
 </div>
 
@@ -1867,27 +1440,20 @@ ${naoAplicaveis}
 `;
 
 
-/* ITENS */
-
-let categoriaAtual = "";
+let cat="";
 
 
-itens.forEach(
-function(item,indice){
+itens.forEach((x,i)=>{
 
-if(
-item[0] !== categoriaAtual
-){
+if(x[0]!==cat){
 
-categoriaAtual =
-item[0];
+cat=x[0];
 
+h+=`
 
-html += `
+<div class="relatorio-titulo">
 
-<div class="titulo">
-
-${esc(categoriaAtual)}
+${escapar(cat)}
 
 </div>
 
@@ -1896,141 +1462,89 @@ ${esc(categoriaAtual)}
 }
 
 
-const resultado =
-respostas[indice];
+const r=respostas[i];
+
+let cl="relatorio-item";
+
+let rt="";
 
 
-let classe =
-"item";
+if(r==="C"){
 
+cl+=" item-c";
 
-if(
-resultado === "C"
-){
+rt="✓ CONFORME";
 
-classe +=
-" item-c";
+}
+
+else if(r==="NC"){
+
+cl+=" item-nc";
+
+rt="✕ NÃO CONFORME";
+
+}
+
+else{
+
+cl+=" item-na";
+
+rt="— NÃO APLICÁVEL";
 
 }
 
 
-if(
-resultado === "NC"
-){
+h+=`
 
-classe +=
-" item-nc";
-
-}
-
-
-if(
-resultado === "NA"
-){
-
-classe +=
-" item-na";
-
-}
-
-
-let textoResultado =
-"";
-
-
-if(
-resultado === "C"
-){
-
-textoResultado =
-"✓ CONFORME";
-
-}
-
-
-if(
-resultado === "NC"
-){
-
-textoResultado =
-"✕ NÃO CONFORME";
-
-}
-
-
-if(
-resultado === "NA"
-){
-
-textoResultado =
-"— NÃO APLICÁVEL";
-
-}
-
-
-html += `
-
-<div class="${classe}">
+<div class="${cl}">
 
 <b>
-
-${indice + 1}.
-${esc(item[1])}
-
+${i+1}.
+${escapar(x[1])}
 </b>
 
+<br><br>
 
-<div>
-
-<b>
-
-${textoResultado}
-
-</b>
-
-</div>
+<strong>
+${rt}
+</strong>
 
 `;
 
 
-if(
-resultado === "NC"
-){
+if(r==="NC"){
 
-const justificativa =
-document
-.getElementById(
-"j" + indice
+const j=
+document.getElementById(
+"justificativa_"+i
 )
-.value;
+.value.trim();
 
 
-html += `
+h+=`
 
-<div class="nc">
+<div class="justificativa">
 
 <b>
 Justificativa da NC:
 </b>
 
-<br>
+<br><br>
 
-${esc(justificativa)}
+${escapar(j)}
 
 `;
 
 
-if(
-fotos[indice]
-){
+if(fotos[i]){
 
-html += `
+h+=`
 
 <br>
 
 <img
+src="${fotos[i]}"
 class="foto"
-src="${fotos[indice]}"
 >
 
 `;
@@ -2038,7 +1552,7 @@ src="${fotos[indice]}"
 }
 
 
-html += `
+h+=`
 
 </div>
 
@@ -2047,7 +1561,7 @@ html += `
 }
 
 
-html += `
+h+=`
 
 </div>
 
@@ -2056,153 +1570,104 @@ html += `
 });
 
 
-/* OBSERVAÇÃO GERAL */
+h+=`
 
-html += `
-
-<div class="titulo">
+<div class="relatorio-titulo">
 
 OBSERVAÇÃO GERAL
 
 </div>
 
 
-<div class="obs">
+<div class="observacao">
 
 ${
-observacao.trim()
+obs
 ?
-esc(observacao)
+escapar(obs)
 :
 "Nenhuma observação geral registrada."
 }
 
 </div>
 
-`;
 
-
-/* ASSINATURA */
-
-const assinatura =
-canvas.toDataURL(
-"image/png"
-);
-
-
-html += `
-
-<div class="titulo">
+<div class="relatorio-titulo">
 
 ASSINATURA DO RESPONSÁVEL
 
 </div>
 
 
-<div class="assinatura">
+<div class="assinatura-relatorio">
 
 <img
-src="${assinatura}"
+src="${canvas.toDataURL("image/png")}"
 >
 
 <br><br>
 
-<b>
-
-${esc(responsavel)}
-
-</b>
+<strong>
+${escapar(responsavel)}
+</strong>
 
 </div>
-
-
-<div class="acoes">
-
-<button
-class="botao"
-onclick="window.print()">
-
-📄 SALVAR COMO PDF
-
-</button>
-
-</div>
-
-
-</body>
-
-</html>
 
 `;
 
 
-/* ABRIR RELATÓRIO */
-
-const janela =
-window.open(
-"",
-"_blank"
-);
+document.getElementById(
+"relatorioConteudo"
+).innerHTML=h;
 
 
-if(!janela){
-
-alert(
-"Permita pop-ups no Safari e tente novamente."
-);
-
-return;
-
-}
+document.getElementById(
+"telaChecklist"
+).style.display="none";
 
 
-janela.document.open();
+document.getElementById(
+"relatorio"
+).style.display="block";
 
-janela.document.write(
-html
-);
 
-janela.document.close();
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
 
 }
 
 
-/* ============================================================
-   INICIAR
-   ============================================================ */
+function imprimirRelatorio(){
+
+window.print();
+
+}
+
+
+function voltarChecklist(){
+
+document.getElementById(
+"relatorio"
+).style.display="none";
+
+document.getElementById(
+"telaChecklist"
+).style.display="block";
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
 
 window.addEventListener(
 "load",
 iniciar
 );
-
-
-/* ============================================================
-   SERVICE WORKER
-   ============================================================ */
-
-if(
-"serviceWorker"
-in navigator
-){
-
-window.addEventListener(
-"load",
-function(){
-
-navigator
-.serviceWorker
-.register(
-"service-worker.js"
-)
-.catch(
-function(){}
-);
-
-}
-);
-
-}
 
 </script>
 
